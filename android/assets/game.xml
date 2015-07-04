@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game
+    id="Rotate"
+    class="com.turpgames.rotategame.view.RotateGame"
+    version="1.0.0" >
+
+    <params>
+        <param
+            key="debug"
+            value="false" />
+
+        <param
+            key="server"
+            value="test" />
+
+        <param
+            key="enable-analytics"
+            value="false" />
+
+        <param
+            key="enable-ads"
+            value="true" />
+
+        <param
+            key="provider"
+            value="com.turpgames.framework.v0.impl.libgdx.GdxGameProvider" />
+
+        <param
+            key="settings-key"
+            value="com.turpgames.rotategame" />
+
+        <param
+            key="virtual-width"
+            value="550" />
+
+        <param
+            key="virtual-height"
+            value="800" />
+
+        <param
+            key="default-font"
+            value="Akachen,1" />
+
+        <param
+            key="disable-vibration"
+            value="true" />
+
+        <param
+            key="default-screen"
+            value="splash" />
+
+        <param
+            key="default-skin"
+            value="doubleup" />
+
+        <param
+            key="screen-switcher"
+            value="fading,0.30" />
+
+        <param
+            key="form-switcher"
+            value="sliding,0.30" />
+
+        <param
+            key="allow-exit-on-back"
+            value="true" />
+
+        <param
+            key="play-store-address"
+            value="market://details?id=com.turpgames.rotategame" />
+
+        <param
+            key="app-store-address-ios7"
+            value="!!!!!!!!!!!!!!!!!!!!!!!itms-apps://itunes.apple.com/app/yoh" />
+
+        <param
+            key="twitter-address"
+            value="http://www.twitter.com/turpgames" />
+
+        <param
+            key="facebook-address"
+            value="http://www.facebook.com/turpgames" />
+
+        <param
+            key="admob-interstitial-ad-unit-id-ios"
+            value="!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ca-app-pub-9430411208134016/3931947478" />
+
+        <param
+            key="admob-interstitial-ad-unit-id-android"
+            value="!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ca-app-pub-9430411208134016/3243188277" />
+        
+    </params>
+
+    <screens>
+
+        <screen
+            id="splash"
+            class="com.turpgames.rotategame.view.SplashScreen" />
+        <screen
+            id="menu"
+            class="com.turpgames.rotategame.view.MenuScreen"
+            background-texture="bgdot"/>
+        <screen
+            id="play"
+            class="com.turpgames.rotategame.view.PlayScreen" 
+            background-texture="bgdot"/>
+        <screen
+            id="master"
+            class="com.turpgames.rotategame.view.MasterScreen" 
+            background-texture="bgdot"/>
+        <screen
+            id="hisc"
+            class="com.turpgames.rotategame.view.HiScoresScreen" 
+            background-texture="bgdot"/>
+        <screen
+            id="about"
+            class="com.turpgames.rotategame.view.AboutScreen" 
+            background-texture="bgdot"/>
+    </screens>
+
+    <forms>
+
+       
+    </forms>
+
+    <animations>
+
+        <animation
+            id="loading"
+            frame-duration="0.040"
+            frame-height="74"
+            frame-width="74"
+            loop="true"
+            texture="loading" />
+    </animations>
+
+    <resources>
+
+        <fonts>
+            <font
+                id="Akachen"
+                path="fonts/akachen_1024.fnt" />
+        </fonts>
+        
+        <ttfonts>
+            <ttfont
+                id="Nokia"
+                path="fonts/nokiafc22.ttf" />
+        </ttfonts>
+        
+        <textures>
+
+            <texture
+                id="turp_logo"
+                path="img/turpgames_logo.png"
+                resource-load="primary" />
+
+            <texture
+                id="ab_turp"
+                path="img/about/turp_button.png" />
+
+            <texture
+                id="ab_facebook"
+                path="img/about/facebook_button.png" />
+
+            <texture
+                id="ab_twitter"
+                path="img/about/twitter_button.png" />
+            
+            <texture
+                id="levelFrame"
+                path="img/levelframe.png" />
+            <texture
+                id="efxSprite"
+                path="img/efxsprite.png" />
+            <texture
+                id="bgdot"
+                path="img/bgdot.png" />
+            
+            <texture
+                id="grid"
+                path="img/grid.png" />
+            <texture
+                id="highlight"
+                path="img/H.png" />
+            
+            <texture
+                id="block1-1"
+                path="img/block/1-1.png" />
+            <texture
+                id="block1-2"
+                path="img/block/1-2.png" />
+            <texture
+                id="block1-3"
+                path="img/block/1-3.png" />
+            <texture
+                id="block1-4"
+                path="img/block/1-4.png" />
+            
+            <texture
+                id="block2C-1"
+                path="img/block/2C-1.png" />
+            <texture
+                id="block2C-2"
+                path="img/block/2C-2.png" />
+            <texture
+                id="block2C-3"
+                path="img/block/2C-3.png" />
+            <texture
+                id="block2C-4"
+                path="img/block/2C-4.png" />
+            
+            <texture
+                id="block2S-1"
+                path="img/block/2S-1.png" />
+            <texture
+                id="block2S-2"
+                path="img/block/2S-2.png" />
+            <texture
+                id="block2S-3"
+                path="img/block/2S-3.png" />
+            <texture
+                id="block2S-4"
+                path="img/block/2S-4.png" />
+            
+            <texture
+                id="block3-1"
+                path="img/block/3-1.png" />
+            <texture
+                id="block3-2"
+                path="img/block/3-2.png" />
+            <texture
+                id="block3-3"
+                path="img/block/3-3.png" />
+            <texture
+                id="block3-4"
+                path="img/block/3-4.png" />
+            
+            <texture
+                id="block4-1"
+                path="img/block/4-1.png" />
+            <texture
+                id="block4-2"
+                path="img/block/4-2.png" />
+            <texture
+                id="block4-3"
+                path="img/block/4-3.png" />
+            <texture
+                id="block4-4"
+                path="img/block/4-4.png" />
+            
+            <texture
+                id="btn_default"
+                path="img/btn_default.png"/>
+            <texture
+                id="btn_active"
+                path="img/btn_default.png"/>
+            
+            <texture
+                id="unconneast"
+                path="img/unconneast.png" />
+            <texture
+                id="unconnnorth"
+                path="img/unconnnorth.png" />
+            <texture
+                id="unconnwest"
+                path="img/unconnwest.png" />
+            <texture
+                id="unconnsouth"
+                path="img/unconnsouth.png" />
+            
+            <texture
+                id="tutarrow"
+                path="img/tutarrow.png" />
+            <texture
+                id="tutclick"
+                path="img/tutclick.png" />
+            <texture
+                id="tutoksign"
+                path="img/tutoksign.png" />
+            <texture
+                id="handcursor"
+                path="img/handcursor.png" />
+        </textures>
+        
+        <sounds>
+
+            <!-- <sound
+                id="1"
+                path="audio/1.mp3" /> -->
+        </sounds>
+
+        <musics>
+        </musics>
+    </resources>
+
+    <languages>
+
+        <language
+            id="en-US"
+            encoding="UTF8"
+            flag-texture-id="flag_en_us"
+            path="lang/Strings_en_US.properties" />
+    </languages>
+
+    <skins>
+
+        <skin id="rotate" >
+
+            <form
+                cols="16"
+                rows="32" />
+
+            <button
+                cols="8"
+                default-color="#ffffffff"
+                focus-color="#f9b000ff"
+                font-scale="1"
+                halign="center"
+                rows="2"
+                vibrate="0"
+                x="4" />
+
+            <label
+                halign="center"
+                rows="2"
+                color="#fff" />
+        </skin>
+    </skins>
+
+</game>
