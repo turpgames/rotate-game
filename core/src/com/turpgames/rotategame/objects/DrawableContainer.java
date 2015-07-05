@@ -8,6 +8,7 @@ import com.turpgames.framework.v0.IDrawable;
 public class DrawableContainer implements IDrawable {
 
 	private List<IDrawable> objList;
+	private boolean isActive;
 	
 	public DrawableContainer() {
 		objList = new ArrayList<IDrawable>();
@@ -23,8 +24,18 @@ public class DrawableContainer implements IDrawable {
 	
 	@Override
 	public void draw() {
+		if (!isActive)
+			return;
 		for (IDrawable obj : objList) {
 			obj.draw();
 		}
+	}
+
+	public void activate() {
+		isActive = true;
+	}
+	
+	public void deactivate() {
+		isActive = false;
 	}
 }

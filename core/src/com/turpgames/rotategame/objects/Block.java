@@ -72,8 +72,6 @@ public class Block extends GameObject {
 		
 		this.direction += 1;
 		this.direction %= 4;
-		
-		// change block texture according to rotation
 	}
 	
 	public void clicked() {
@@ -88,9 +86,12 @@ public class Block extends GameObject {
 		
 		TextureDrawer.draw(R.Textures.blockImgs[type-1][direction], this);
 		//ShapeDrawer.drawRect(this, true);
-//		for (int i = 0; i < 4; i++) {
-//			if (unconnecteds[i])
-//				unconnectedImgs[i].draw();
-//		}
+
+		this.getColor().set(R.Colors.UNCONNCOLOR);
+		for (int i = 0; i < 4; i++) {
+			if (unconnecteds[i])
+				TextureDrawer.draw(R.Textures.unconnectedImgs[i], this);
+		}
+		this.getColor().set(R.Colors.BLOCKCOLOR);
 	}
 }

@@ -5,23 +5,32 @@ import com.turpgames.framework.v0.util.Color;
 import com.turpgames.framework.v0.util.Game;
 
 public class R {
-	public static final int BUTTONWIDTH =  130;
-	public static final int BUTTONHEIGHT =  49;
-	public static final int BUTTONOFFSETX =  35;
+	public static final int BUTTONWIDTH =  230;
+	public static final int BUTTONHEIGHT =  98;
+	public static final int BUTTONOFFSETX =  10;
 	
-	public static final int BLOCKSIZE = 72;
+	public static final int BLOCKSIZE = 100;
 	public static final int BLOCKHIGHLIGHTOFFSET = 6;
 	
 	public static final int ROWNUMBER = 5;
 	public static final int COLNUMBER = 5;
+
+	public static final int MAPOFFSETX = (int) ((Game.getVirtualWidth() - ROWNUMBER * BLOCKSIZE) / 2);
+//	public static final int MAPOFFSETY = (int) ((Game.getVirtualHeight() - COLNUMBER * BLOCKSIZE) / 2);
+	public static final int MAPOFFSETY = MAPOFFSETX;
+
+	private static final int LEVELFRAMEOFFSET = 12;
+	public static final int LEVELFRAMEOFFSETX = MAPOFFSETX - LEVELFRAMEOFFSET;
+	public static final int LEVELFRAMEOFFSETY = MAPOFFSETY - LEVELFRAMEOFFSET;
+	public static final int LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
+	public static final int LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
 	
-	public static final int MAPOFFSETY = (480 - COLNUMBER * BLOCKSIZE) / 2;
-	public static final int MAPOFFSETX = 640 - ROWNUMBER * BLOCKSIZE - ((480 - COLNUMBER * BLOCKSIZE) / 2);
+	public static final int HUDPAD = MAPOFFSETX;
 	
 	//public static final int MAPOFFSETX = 50;
 	//public static final int MAPOFFSETY = 50;
 	
-	public static final int MASTERLEVELTIME = 30;
+	public static final int MASTERLEVELTIME = 6;
 	public static final int MASTERLEVELCOUNT = 20;
 	
 	public static class Connection {
@@ -37,6 +46,10 @@ public class R {
 		public static final String master = "master";
 		public static final String about = "about";
 		public static final String hiscores = "hiscores";
+
+		public static final String finishednormal = "finishednormal";
+		public static final String finishedmaster = "finishedmaster";
+		public static final String tutorial = "tutorial";
 	}
 	
 	public static class Colors {
@@ -112,6 +125,7 @@ public class R {
 		public static final ITexture handcursor = Game.getResourceManager().getTexture("handcursor");
 		
 		public static final ITexture[][] blockImgs;
+		public static final ITexture[] unconnectedImgs;
 		
 		static {
 			ITexture[] block1Imgs;
@@ -156,6 +170,12 @@ public class R {
 			blockImgs[2] = block2SImgs;
 			blockImgs[3] = block3Imgs;
 			blockImgs[4] = block4Imgs;
+			
+			unconnectedImgs = new ITexture[4];
+			unconnectedImgs[Connection.EAST] = unconneast;
+			unconnectedImgs[Connection.WEST] = unconnwest;
+			unconnectedImgs[Connection.NORTH] = unconnnorth;
+			unconnectedImgs[Connection.SOUTH] = unconnsouth;
 		};
 	}
 }

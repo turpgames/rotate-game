@@ -57,7 +57,9 @@ public class ControlListener extends InputListener implements IDrawable {
 	
 	@Override
 	public boolean touchUp(float x, float y, int pointer, int button) {
-		focusedBlock.clicked();
+		if (GameUtils.isIn(x, y, frameRect, false)) {
+			focusedBlock.clicked();
+		}
 		return super.touchUp(x, y, pointer, button);
 	}
 	

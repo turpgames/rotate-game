@@ -11,8 +11,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Rotate";
 
-		float w = 640;
-		float h = 480;
+		float w = 480;
+		float h = 640;
 		float x = 1;
 
 		cfg.width = (int) (x * w);

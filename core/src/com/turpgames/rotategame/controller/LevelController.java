@@ -1,6 +1,7 @@
 package com.turpgames.rotategame.controller;
 
 import com.turpgames.framework.v0.IDrawable;
+import com.turpgames.framework.v0.component.Button2;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.impl.InputListener;
 import com.turpgames.framework.v0.impl.ScreenManager;
@@ -39,7 +40,7 @@ public class LevelController extends InputListener implements IDrawable {
 		}
 		
 		btnMenu = new ArcadeButton("Menu");
-		btnMenu.setLocation(R.BUTTONOFFSETX, 393);
+		btnMenu.setLocation(Button2.ne, R.HUDPAD, R.HUDPAD);
 		btnMenu.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
@@ -47,16 +48,15 @@ public class LevelController extends InputListener implements IDrawable {
 			}
 		});
 		generalDrawables.add(btnMenu);
+		generalDrawables.activate();
 	}
 
 	public void activate() {
 		btnMenu.activate();
-		Drawer.getCurrent().register(level, Game.LAYER_GAME);
 	}
 
 	public void deactivate() {
 		btnMenu.activate();
-		Drawer.getCurrent().unregister(level);
 	}
 
 	public void update() {

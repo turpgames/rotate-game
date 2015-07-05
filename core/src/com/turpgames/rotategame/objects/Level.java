@@ -1,7 +1,9 @@
 package com.turpgames.rotategame.objects;
 
 import com.turpgames.framework.v0.IDrawable;
+import com.turpgames.framework.v0.impl.GameObject;
 import com.turpgames.framework.v0.util.GameUtils;
+import com.turpgames.framework.v0.util.TextureDrawer;
 import com.turpgames.rotategame.controller.LevelController;
 import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Connection;
@@ -10,14 +12,17 @@ import com.turpgames.utils.Util.Random;
 public class Level implements IDrawable {
 	protected LevelController parent;
 	protected Block[][] blocks;
+	protected LevelFrame levelFrame;
 	
 	public boolean levelIsFinished;
 	
 	public Level(LevelController parent, int[][] mapData) {
 		this.parent = parent;
 		this.levelIsFinished = false;
+		this.levelFrame = new LevelFrame();
 		
 		generateLevel(mapData);
+		randomizeBlocks();
 	}
 	
 	
@@ -27,7 +32,7 @@ public class Level implements IDrawable {
 		for (int i = 0; i < mapData.length; i++) {
 			row = new Block[mapData[i].length];
 			for (int j = 0; j < mapData[i].length; j++) {
-				row[j] = new Block(this, R.MAPOFFSETX + j * R.BLOCKSIZE, R.MAPOFFSETY + i* R.BLOCKSIZE, i, j, mapData[i][j], Random.randInt(4));
+				row[j] = new Block(this, R.MAPOFFSETX + j * R.BLOCKSIZE, R.MAPOFFSETY + (mapData.length - i - 1) * R.BLOCKSIZE, i, j, mapData[i][j], Random.randInt(4));
 			}
 			blocks[i] = row;
 		}
@@ -37,7 +42,7 @@ public class Level implements IDrawable {
 		int r;
 		for (int i = 0; i < blocks.length; i++) {
 			for (int j = 0; j < blocks[i].length; j++) {
-				r = Random.randInt();
+				r = Random.randInt() % 4;
 				while (r >= 0)
 				{
 					blocks[i][j].rotate();
@@ -120,7 +125,7 @@ public class Level implements IDrawable {
 		}
 		else if (row - 1 < 0 && block.connections[Connection.NORTH] == true) {
 			block.unconnecteds[Connection.NORTH] = true;
-		}
+		}	
 		
 		if (row + 1 < 5) {
 			blocks[row + 1][col].unconnecteds[Connection.NORTH] = false;
@@ -142,7 +147,7 @@ public class Level implements IDrawable {
 		}
 		else if (col - 1 < 0 && block.connections[Connection.WEST] == true) {
 			block.unconnecteds[Connection.WEST] = true;
-		}
+		}	
 		
 		if (col + 1 < 5) {
 			blocks[row][col + 1].unconnecteds[Connection.WEST] = false;
@@ -194,5 +199,25 @@ public class Level implements IDrawable {
 				blocks[i][j].draw();
 			}
 		}
+		levelFrame.draw();
+	}
+	
+	protected class LevelFrame extends GameObject {
+		
+		public LevelFrame() {
+			super();
+			getLocation().set(R.LEVELFRAMEOFFSETX, R.LEVELFRAMEOFFSETY);
+			setWidth(R.LEVELFRAMEWIDTH);
+			setHeight(R.LEVELFRAMEHEIGHT);
+//			getColor().set(R.Colors.LEVELFRAMECOLOR);
+//			getColor().set(R.Colors.BACKGROUND);
+			getColor().set(R.Colors.BLOCKCOLOR);
+		}
+		
+		@Override
+		public void draw() {
+			TextureDrawer.draw(R.Textures.levelFrame, this);
+		}
+		
 	}
 }

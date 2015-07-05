@@ -105,6 +105,18 @@
             class="com.turpgames.rotategame.view.PlayScreen" 
             background-texture="bgdot"/>
         <screen
+            id="tutorial"
+            class="com.turpgames.rotategame.view.TutorialScreen" 
+            background-texture="bgdot"/>
+        <screen
+            id="finishedmaster"
+            class="com.turpgames.rotategame.view.FinishedMasterScreen" 
+            background-texture="bgdot"/>
+        <screen
+            id="finishednormal"
+            class="com.turpgames.rotategame.view.FinishedNormalScreen" 
+            background-texture="bgdot"/>
+        <screen
             id="master"
             class="com.turpgames.rotategame.view.MasterScreen" 
             background-texture="bgdot"/>
@@ -254,20 +266,20 @@
                 path="img/btn_default.png"/>
             <texture
                 id="btn_active"
-                path="img/btn_default.png"/>
+                path="img/btn_active.png"/>
             
             <texture
                 id="unconneast"
-                path="img/unconneast.png" />
+                path="img/block/unconneast.png" />
             <texture
                 id="unconnnorth"
-                path="img/unconnnorth.png" />
+                path="img/block/unconnnorth.png" />
             <texture
                 id="unconnwest"
-                path="img/unconnwest.png" />
+                path="img/block/unconnwest.png" />
             <texture
                 id="unconnsouth"
-                path="img/unconnsouth.png" />
+                path="img/block/unconnsouth.png" />
             
             <texture
                 id="tutarrow"

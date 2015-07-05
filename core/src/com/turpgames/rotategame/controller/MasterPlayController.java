@@ -5,7 +5,9 @@ import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.components.ArcadeButton;
-import com.turpgames.rotategame.components.NormalText;
+import com.turpgames.rotategame.components.texts.NormalText;
+import com.turpgames.rotategame.components.texts.SmallText;
+import com.turpgames.rotategame.components.texts.XLargeText;
 import com.turpgames.rotategame.objects.Block;
 import com.turpgames.rotategame.objects.DrawableContainer;
 import com.turpgames.rotategame.objects.Level;
@@ -19,10 +21,10 @@ public class MasterPlayController extends LevelController {
 	protected int mapTime;
 	protected LevelTimer levelTimer;
 	
-	protected NormalText levelTitle;
+	protected XLargeText levelTitle;
 	private NormalText totalScoreText;
 	protected int totalScore;
-	private Text levelScoreText;
+	private NormalText levelScoreText;
 	private int levelScore;
 	private float scoreTimer;
 	
@@ -40,21 +42,31 @@ public class MasterPlayController extends LevelController {
 		this.mapData = MapData.randMap();
 		level = new Level(this, mapData);
 		generalDrawables.add(level);
+
+		mapTime = R.MASTERLEVELTIME - mapIndex;
+		levelScore = mapTime * 10;
 		
 		levelTimer = new LevelTimer(mapTime, this);
 		levelTimer.start();
 		generalDrawables.add(levelTimer);
 		
-		levelTitle = new NormalText();
-		levelTitle.setText("LEVEL\n" + (mapIndex + 1));
+		levelTitle = new XLargeText();
+		levelTitle.getColor().set(R.Colors.BLOCKCOLOR);
+		levelTitle.setAlignment(Text.HAlignLeft, Text.VAlignTop);
+		levelTitle.setPadding(0, R.HUDPAD);
 		generalDrawables.add(levelTitle);
+		setLevelTitle();
 		
-		levelScoreText = new Text();
-		levelScoreText.setText("" + levelScore);
+		levelScoreText = new NormalText();
+		levelScoreText.getColor().set(R.Colors.BLOCKCOLOR);
+		levelScoreText.setAlignment(Text.HAlignLeft, Text.VAlignTop);
+		levelScoreText.setPadding(0, R.HUDPAD * 3);
 		generalDrawables.add(levelScoreText);
+		setLevelScoreText();
 		
-		Text gameWonText = new Text();
+		NormalText gameWonText = new NormalText();
 		gameWonText.setText("Level finished!!");
+		gameWonText.getColor().set(R.Colors.BLOCKCOLOR);
 		gameWonHud.add(gameWonText);
 		
 		btnNext = new ArcadeButton("Next");
@@ -68,7 +80,11 @@ public class MasterPlayController extends LevelController {
 		gameWonHud.add(btnNext);		
 		
 		totalScoreText = new NormalText();
-		gameWonHud.add(totalScoreText);
+		totalScoreText.getColor().set(R.Colors.BLOCKCOLOR);
+		totalScoreText.setAlignment(Text.HAlignLeft, Text.VAlignTop);
+		totalScoreText.setPadding(0, R.HUDPAD * 4 + 10);
+		generalDrawables.add(totalScoreText);
+		setTotalScoreText();
 		
 		btnRetry = new ArcadeButton("Retry");
 		btnRetry.setLocation(R.BUTTONOFFSETX, 393);
@@ -82,52 +98,68 @@ public class MasterPlayController extends LevelController {
 		
 		btnNext.deactivate();
 		btnRetry.deactivate();
+		
+		generalDrawables.add(retryHud);
+		generalDrawables.add(gameWonHud);
 	}
-	
-	private void onNext() {
-		mapIndex++;
-		mapTime = R.MASTERLEVELTIME - mapIndex;
-		if (mapIndex == R.MASTERLEVELCOUNT) {
-			// finish master state. go to master result screen
-			ScreenManager.instance.switchTo(R.Screens.menu, false);
-		}
-		else
-		{
-			resetState();
-			mapData = MapData.randMap();
-			level = new Level(this, mapData);
-			levelTitle.setText("LEVEL" + (mapIndex + 1) + "/" + R.MASTERLEVELCOUNT);
-		}
-	}
-	
+
 	private void onRetry() {
 		resetState();
 		level.randomizeBlocks();
 		level.levelIsFinished = false;
 		totalScore -= 100;
-		totalScoreText.setText("Score:\n" + totalScore);
+		setTotalScoreText();
 	}
 	
+	protected void onNext() {
+		mapIndex++;
+		mapTime = R.MASTERLEVELTIME - mapIndex;
+		if (mapIndex == R.MASTERLEVELCOUNT) {
+			// save score to progress
+			ScreenManager.instance.switchTo(R.Screens.finishedmaster, false);
+		}
+		else
+		{
+			resetState();
+			mapData = MapData.randMap();
+			generalDrawables.remove(level);
+			level = new Level(this, mapData);
+			generalDrawables.add(level);
+			setLevelTitle();
+			mapTime = R.MASTERLEVELTIME - mapIndex;
+		}
+	}
+
 	protected void resetState() {
+		retryHud.deactivate();
+		btnRetry.deactivate();
+		gameWonHud.deactivate();
+		btnNext.deactivate();
+		
 		scoreTimer = 0;
 		levelScore = mapTime * 10;
-		levelScoreText.setText("" + levelScore);
+		setLevelScoreText();
 		
 		levelTimer.reset();
 		levelTimer.start();
 	}
 	
 	public void timeUp() {
+		retryHud.activate();
+		btnRetry.activate();
+		
 		level.levelIsFinished = true;
 		levelTimer.stop();
 	}
 	
 	@Override
 	public void levelWon() {
+		super.levelWon();
+		gameWonHud.activate();
 		btnNext.activate();
 		
 		totalScore += levelScore;
-		totalScoreText.setText("Score:\n " + totalScore);
+		setTotalScoreText();
 		scoreTimer = 0;
 		
 		levelTimer.stop();
@@ -141,7 +173,7 @@ public class MasterPlayController extends LevelController {
 		levelScore--;
 		if (levelScore < 0)
 			levelScore = 0;
-		levelScoreText.setText("" + levelScore);
+		setLevelScoreText();
 		super.blockClicked(block);
 	}
 	
@@ -155,8 +187,20 @@ public class MasterPlayController extends LevelController {
 			levelScore -= 10;							
 			if (levelScore < 0)
 				levelScore = 0;
-			levelScoreText.setText("" + levelScore);
+			setLevelScoreText();
 			scoreTimer = 0;
 		}
+	}
+
+	private void setTotalScoreText() {
+		totalScoreText.setText("Total Score: " + totalScore);
+	}
+	
+	private void setLevelScoreText() {
+		levelScoreText.setText("Level Score: " + levelScore);
+	}
+	
+	private void setLevelTitle() {
+		levelTitle.setText("LEVEL " + (mapIndex + 1) + "/" + R.MASTERLEVELCOUNT);
 	}
 }

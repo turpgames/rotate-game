@@ -12,7 +12,7 @@ public class TurpLogo extends GameObject {
 	public TurpLogo() {
 		logo = Game.getResourceManager().getTexture("turp_logo");
 		setLogoSize(logoSize);
-		getLocation().set(0f, 50f + (Game.getVirtualHeight() - logoSize) / 2f);
+		getLocation().set((Game.getVirtualWidth() - logoSize)/2, 50f + (Game.getVirtualHeight() - logoSize) / 2f);
 	}
 
 	public void draw() {

@@ -85,7 +85,19 @@ public class MapData {
 					map[i][j] = Block.CONN4;
 			}
 		}
-		return map;
+//		return map;
+		return new int[][]{
+	     		{2, 2, 0, 2, 2},
+	    		{2, 2, 0, 2, 2},
+	    		{0, 0, 0, 0, 0},
+	    		{2, 2, 0, 2, 2},
+	    		{2, 2, 0, 2, 2}};
+//		return new int[][]{
+//	     		{0, 1, 0, 1, 0},
+//	    		{0, 3, 0, 3, 0},
+//	    		{0, 2, 4, 2, 0},
+//	    		{0, 0, 3, 0, 0},
+//	    		{0, 1, 4, 1, 0}};
 	}
 
 	public static MapData[] getAllMapData() 
