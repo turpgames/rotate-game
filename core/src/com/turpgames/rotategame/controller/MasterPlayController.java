@@ -1,12 +1,12 @@
 package com.turpgames.rotategame.controller;
 
 import com.turpgames.framework.v0.component.IButtonListener;
+import com.turpgames.framework.v0.effects.flash.FlashEffect;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.components.ArcadeButton;
 import com.turpgames.rotategame.components.texts.NormalText;
-import com.turpgames.rotategame.components.texts.SmallText;
 import com.turpgames.rotategame.components.texts.XLargeText;
 import com.turpgames.rotategame.objects.Block;
 import com.turpgames.rotategame.objects.DrawableContainer;
@@ -30,6 +30,7 @@ public class MasterPlayController extends LevelController {
 	
 	protected DrawableContainer retryHud;
 	protected DrawableContainer gameWonHud;
+	private FlashEffect gameWonFlash;
 	
 	protected ArcadeButton btnNext;
 	protected ArcadeButton btnRetry;
@@ -60,7 +61,7 @@ public class MasterPlayController extends LevelController {
 		levelScoreText = new NormalText();
 		levelScoreText.getColor().set(R.Colors.BLOCKCOLOR);
 		levelScoreText.setAlignment(Text.HAlignLeft, Text.VAlignTop);
-		levelScoreText.setPadding(0, R.HUDPAD * 3);
+		levelScoreText.setPadding(0, R.HUDPAD * 4 + 10);
 		generalDrawables.add(levelScoreText);
 		setLevelScoreText();
 		
@@ -68,7 +69,7 @@ public class MasterPlayController extends LevelController {
 		gameWonText.setText("Level finished!!");
 		gameWonText.getColor().set(R.Colors.BLOCKCOLOR);
 		gameWonHud.add(gameWonText);
-		
+
 		btnNext = new ArcadeButton("Next");
 		btnNext.setLocation(R.BUTTONOFFSETX, 393);
 		btnNext.setListener(new IButtonListener() {
@@ -82,12 +83,12 @@ public class MasterPlayController extends LevelController {
 		totalScoreText = new NormalText();
 		totalScoreText.getColor().set(R.Colors.BLOCKCOLOR);
 		totalScoreText.setAlignment(Text.HAlignLeft, Text.VAlignTop);
-		totalScoreText.setPadding(0, R.HUDPAD * 4 + 10);
+		totalScoreText.setPadding(0, R.HUDPAD * 3);
 		generalDrawables.add(totalScoreText);
 		setTotalScoreText();
 		
 		btnRetry = new ArcadeButton("Retry");
-		btnRetry.setLocation(R.BUTTONOFFSETX, 393);
+		btnRetry.setLocation((Game.getVirtualWidth() - btnRetry.getWidth()) / 2, Game.getVirtualHeight() / 4);
 		btnRetry.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
@@ -101,8 +102,12 @@ public class MasterPlayController extends LevelController {
 		
 		generalDrawables.add(retryHud);
 		generalDrawables.add(gameWonHud);
+		
+//		gameWonFlash = new FlashEffect(totalScoreText, Color.white(), 4);
+//		gameWonFlash.setDuration(100);
+//		gameWonFlash.start();
 	}
-
+	
 	private void onRetry() {
 		resetState();
 		level.randomizeBlocks();

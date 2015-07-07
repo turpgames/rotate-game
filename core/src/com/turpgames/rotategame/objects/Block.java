@@ -24,7 +24,7 @@ public class Block extends GameObject {
 	public boolean[] unconnecteds;
 	public int type;
 	
-	public Block(Level parent, int X, int Y, int row, int col, int type, int rotation) {
+	public Block(Level parent, float X, float Y, int row, int col, int type, int rotation) {
 		this.parent = parent;
 		this.row = row;
 		this.col = col;

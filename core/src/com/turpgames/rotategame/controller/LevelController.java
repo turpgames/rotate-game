@@ -5,8 +5,6 @@ import com.turpgames.framework.v0.component.Button2;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.impl.InputListener;
 import com.turpgames.framework.v0.impl.ScreenManager;
-import com.turpgames.framework.v0.util.Drawer;
-import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.components.ArcadeButton;
 import com.turpgames.rotategame.objects.Block;
 import com.turpgames.rotategame.objects.ControlListener;

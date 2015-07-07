@@ -15,17 +15,17 @@ public class R {
 	public static final int ROWNUMBER = 5;
 	public static final int COLNUMBER = 5;
 
-	public static final int MAPOFFSETX = (int) ((Game.getVirtualWidth() - ROWNUMBER * BLOCKSIZE) / 2);
+	public static final float MAPOFFSETX = ((Game.getVirtualWidth() - ROWNUMBER * BLOCKSIZE) / 2);
 //	public static final int MAPOFFSETY = (int) ((Game.getVirtualHeight() - COLNUMBER * BLOCKSIZE) / 2);
-	public static final int MAPOFFSETY = MAPOFFSETX;
+	public static final float MAPOFFSETY = Game.getVirtualHeight() / 12;
 
-	private static final int LEVELFRAMEOFFSET = 12;
-	public static final int LEVELFRAMEOFFSETX = MAPOFFSETX - LEVELFRAMEOFFSET;
-	public static final int LEVELFRAMEOFFSETY = MAPOFFSETY - LEVELFRAMEOFFSET;
-	public static final int LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
-	public static final int LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
+	private static final float LEVELFRAMEOFFSET = 12;
+	public static final float LEVELFRAMEOFFSETX = MAPOFFSETX - LEVELFRAMEOFFSET;
+	public static final float LEVELFRAMEOFFSETY = MAPOFFSETY - LEVELFRAMEOFFSET;
+	public static final float LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
+	public static final float LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
 	
-	public static final int HUDPAD = MAPOFFSETX;
+	public static final float HUDPAD = MAPOFFSETX;
 	
 	//public static final int MAPOFFSETX = 50;
 	//public static final int MAPOFFSETY = 50;

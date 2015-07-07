@@ -5,13 +5,14 @@ import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.components.ArcadeButton;
+import com.turpgames.rotategame.components.GameLogo;
 import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Screens;
 
 public class MenuScreen extends Screen {
 	private static final int NUMBER_OF_BUTTONS = 4;
 	private static final int BUTTON_SPACE = 10;
-	private static final int BUTTONS_OFFSET = (int)(Game.getVirtualHeight() - (NUMBER_OF_BUTTONS * R.BUTTONHEIGHT + (NUMBER_OF_BUTTONS - 1) * BUTTON_SPACE)) / 2;
+	private static final int BUTTONS_OFFSET = (int)((Game.getVirtualHeight() - (NUMBER_OF_BUTTONS * R.BUTTONHEIGHT + (NUMBER_OF_BUTTONS - 1) * BUTTON_SPACE)) / 2 - Game.getVirtualHeight() / 10);
 
 	private ArcadeButton btnPlay, btnMaster, btnHisc, btnAbout; 
 	
@@ -22,6 +23,12 @@ public class MenuScreen extends Screen {
 		btnMaster = createButton(Screens.master, "Master", BUTTONS_OFFSET + 2*R.BUTTONHEIGHT + 2*BUTTON_SPACE);
 		btnHisc = createButton(Screens.master, "Hi-Sc", BUTTONS_OFFSET + R.BUTTONHEIGHT + BUTTON_SPACE);
 		btnAbout = createButton(Screens.master, "About", BUTTONS_OFFSET);
+		GameLogo logo = new GameLogo();
+		registerDrawable(logo, Game.LAYER_BACKGROUND);
+		registerDrawable(btnPlay, Game.LAYER_BACKGROUND);
+		registerDrawable(btnMaster, Game.LAYER_BACKGROUND);
+		registerDrawable(btnHisc, Game.LAYER_BACKGROUND);
+		registerDrawable(btnAbout, Game.LAYER_BACKGROUND);
 	}
 	
 	@Override
@@ -53,14 +60,5 @@ public class MenuScreen extends Screen {
 			}
 		});
 		return btn;
-	}
-	
-	@Override
-	public void draw() {
-		super.draw();
-		btnPlay.draw();
-		btnMaster.draw();
-		btnHisc.draw();
-		btnAbout.draw();
 	}
 }
