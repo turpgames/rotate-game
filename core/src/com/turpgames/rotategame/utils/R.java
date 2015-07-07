@@ -123,6 +123,7 @@ public class R {
 		public static final ITexture tutclick = Game.getResourceManager().getTexture("tutclick");
 		public static final ITexture tutoksign = Game.getResourceManager().getTexture("tutoksign");
 		public static final ITexture handcursor = Game.getResourceManager().getTexture("handcursor");
+		public static final ITexture DOT = Game.getResourceManager().getTexture("bgdot");
 		
 		public static final ITexture[][] blockImgs;
 		public static final ITexture[] unconnectedImgs;

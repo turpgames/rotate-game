@@ -20,14 +20,19 @@ public class ControlListener extends InputListener implements IDrawable {
 		this.parent = parent;
 		this.frameRect = new Rectangle(R.MAPOFFSETX, R.MAPOFFSETY, R.ROWNUMBER * R.BLOCKSIZE, R.COLNUMBER * R.BLOCKSIZE);
 		this.focusedBlock = null;
-		this.highlight = new TexturedGameObject("highlight") { };
+		this.highlight = new TexturedGameObject(R.Textures.DOT) { };
+		highlight.setWidth(R.BLOCKSIZE);
+		highlight.setHeight(R.BLOCKSIZE);
+		highlight.getColor().set(R.Colors.BUTTONCOLOR);
+//		highlight.getColor().a = 0.6f;
 		dealignHighlight();
+		
 		levelIsFinished = false;
 	}
 	
 	private void alignHighlight(Block block) {
-		highlight.getLocation().x = block.getLocation().x - R.BLOCKHIGHLIGHTOFFSET;
-		highlight.getLocation().y = block.getLocation().y - R.BLOCKHIGHLIGHTOFFSET;
+		highlight.getLocation().x = block.getLocation().x;
+		highlight.getLocation().y = block.getLocation().y;
 	}
 	
 	private void dealignHighlight() {
@@ -52,6 +57,10 @@ public class ControlListener extends InputListener implements IDrawable {
 			focusedBlock = block;
 			alignHighlight(focusedBlock);
 		}
+		else {
+			focusedBlock = null;
+			dealignHighlight();
+		}
 		return super.touchDragged(x, y, pointer);
 	}
 	
@@ -59,6 +68,7 @@ public class ControlListener extends InputListener implements IDrawable {
 	public boolean touchUp(float x, float y, int pointer, int button) {
 		if (GameUtils.isIn(x, y, frameRect, false)) {
 			focusedBlock.clicked();
+			dealignHighlight();
 		}
 		return super.touchUp(x, y, pointer, button);
 	}

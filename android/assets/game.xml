@@ -151,6 +151,27 @@
         <fonts>
             <font
                 id="NokiaXSmall"
+                path="fonts/nokia10.fnt" />
+            <font
+                id="NokiaSmall"
+                path="fonts/nokia14.fnt" />
+            <font
+                id="NokiaNormal"
+                path="fonts/nokia24.fnt" />
+            <font
+                id="NokiaLarge"
+                path="fonts/nokia32.fnt" />
+            <font
+                id="NokiaXLarge"
+                path="fonts/nokia48.fnt" />
+            <font
+                id="NokiaXXLarge"
+                path="fonts/nokia64.fnt" />
+            <font
+                id="NokiaHuge"
+                path="fonts/nokia128.fnt" />
+           <!--  <font
+                id="NokiaXSmall"
                 path="fonts/nokiafc22.ttf" 
                 size="10" />
             <font
@@ -176,7 +197,7 @@
             <font
                 id="NokiaHuge"
                 path="fonts/nokiafc22.ttf" 
-                size="72" />
+                size="72" /> -->
         </fonts>
 
         <textures>
