@@ -17,6 +17,10 @@ public class DrawableContainer implements IDrawable {
 	public void add(IDrawable obj) {
 		objList.add(obj);
 	}
+
+	public void add(int index, IDrawable obj) {
+		objList.add(index, obj);
+	}
 	
 	public void remove(IDrawable obj) {
 		objList.remove(obj);

@@ -14,7 +14,7 @@ public class ControlListener extends InputListener implements IDrawable {
 
 	private Block focusedBlock;
 	private TexturedGameObject highlight;
-	public boolean levelIsFinished;
+	public boolean isActive;
 	
 	public ControlListener(LevelController parent) {
 		this.parent = parent;
@@ -24,10 +24,9 @@ public class ControlListener extends InputListener implements IDrawable {
 		highlight.setWidth(R.BLOCKSIZE);
 		highlight.setHeight(R.BLOCKSIZE);
 		highlight.getColor().set(R.Colors.BUTTONCOLOR);
-//		highlight.getColor().a = 0.6f;
 		dealignHighlight();
 		
-		levelIsFinished = false;
+		isActive = true;
 	}
 	
 	private void alignHighlight(Block block) {
@@ -42,6 +41,8 @@ public class ControlListener extends InputListener implements IDrawable {
 	
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
+		if (!isActive)
+			return false;
 		if (GameUtils.isIn(x, y, frameRect, false)) {
 			Block block = parent.getTouchedBlock(x, y);
 			focusedBlock = block;
@@ -52,6 +53,8 @@ public class ControlListener extends InputListener implements IDrawable {
 	
 	@Override
 	public boolean touchDragged(float x, float y, int pointer) {
+		if (!isActive)
+			return false;
 		if (GameUtils.isIn(x, y, frameRect, false)) {
 			Block block = parent.getTouchedBlock(x, y);
 			focusedBlock = block;
@@ -66,6 +69,8 @@ public class ControlListener extends InputListener implements IDrawable {
 	
 	@Override
 	public boolean touchUp(float x, float y, int pointer, int button) {
+		if (!isActive)
+			return false;
 		if (GameUtils.isIn(x, y, frameRect, false)) {
 			focusedBlock.clicked();
 			dealignHighlight();
@@ -75,11 +80,14 @@ public class ControlListener extends InputListener implements IDrawable {
 	
 	@Override
 	public void draw() {
-		if (!levelIsFinished)
-			this.highlight.draw();
+		this.highlight.draw();
 	}
 
-	public void levelIsFinished() {
-		levelIsFinished = true;
+	public void stop() {
+		isActive = false;
+	}
+	
+	public void start() {
+		isActive = true;
 	}
 }

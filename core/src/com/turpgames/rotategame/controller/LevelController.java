@@ -12,7 +12,7 @@ import com.turpgames.rotategame.objects.DrawableContainer;
 import com.turpgames.rotategame.objects.Level;
 import com.turpgames.rotategame.utils.R;
 
-public class LevelController extends InputListener implements IDrawable {
+abstract public class LevelController extends InputListener implements IDrawable {
 	protected ControlListener listener;
 	
 	protected int[][] mapData;
@@ -38,10 +38,11 @@ public class LevelController extends InputListener implements IDrawable {
 		}
 		
 		btnMenu = new ArcadeButton("Menu");
-		btnMenu.setLocation(Button2.ne, R.HUDPAD, R.HUDPAD);
+		btnMenu.setLocation(Button2.nw, R.HUDPAD, R.HUDPAD);
 		btnMenu.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
+//				levelWon();
 				ScreenManager.instance.switchTo(R.Screens.menu, false);
 			}
 		});
@@ -50,25 +51,26 @@ public class LevelController extends InputListener implements IDrawable {
 	}
 
 	public void activate() {
-		btnMenu.activate();
+		
 	}
 
 	public void deactivate() {
-		btnMenu.activate();
+		
 	}
 
 	public void update() {
 
 	}
 
+	public void levelLost() {
+		listener.stop();
+	}
+	
 	public void levelWon() {
-		listener.levelIsFinished();
+		listener.stop();
 	}
 
-	public void blockClicked(Block block) {
-		// TODO Auto-generated method stub
-		
-	}
+	abstract public void blockClicked(Block block);
 
 	@Override
 	public void draw() {

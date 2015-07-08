@@ -9,29 +9,29 @@ public class R {
 	public static final int BUTTONHEIGHT =  98;
 	public static final int BUTTONOFFSETX =  10;
 	
-	public static final int BLOCKSIZE = 100;
+	public static final int BLOCKSIZE = 70;
 	public static final int BLOCKHIGHLIGHTOFFSET = 6;
 	
-	public static final int ROWNUMBER = 5;
-	public static final int COLNUMBER = 5;
+	public static final int ROWNUMBER = 7;
+	public static final int COLNUMBER = 7;
 
 	public static final float MAPOFFSETX = ((Game.getVirtualWidth() - ROWNUMBER * BLOCKSIZE) / 2);
 //	public static final int MAPOFFSETY = (int) ((Game.getVirtualHeight() - COLNUMBER * BLOCKSIZE) / 2);
 	public static final float MAPOFFSETY = Game.getVirtualHeight() / 12;
 
-	private static final float LEVELFRAMEOFFSET = 12;
-	public static final float LEVELFRAMEOFFSETX = MAPOFFSETX - LEVELFRAMEOFFSET;
-	public static final float LEVELFRAMEOFFSETY = MAPOFFSETY - LEVELFRAMEOFFSET;
-	public static final float LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
-	public static final float LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + LEVELFRAMEOFFSET * 2;
+	public static final float BARWIDTH = 12;
+	public static final float LEVELFRAMEOFFSETX = MAPOFFSETX - BARWIDTH;
+	public static final float LEVELFRAMEOFFSETY = MAPOFFSETY - BARWIDTH;
+	public static final float LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
+	public static final float LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
 	
 	public static final float HUDPAD = MAPOFFSETX;
 	
 	//public static final int MAPOFFSETX = 50;
 	//public static final int MAPOFFSETY = 50;
 	
-	public static final int MASTERLEVELTIME = 6;
-	public static final int MASTERLEVELCOUNT = 20;
+	public static final int STARTSCORE = 60;
+	public static final int LEVELSCOREMULT = 30;
 	
 	public static class Connection {
 		public static final int EAST = 0;
@@ -70,8 +70,10 @@ public class R {
 		public static final Color BLOCKCOLOR = WASABI1;
 		public static final Color HIGHLIGHTCOLOR = WASABI3;
 		public static final Color UNCONNCOLOR = WASABI5;
-		public static final Color LEVELFRAMECOLOR = Color.white();
+		public static final Color LEVELFRAMECOLOR = BLOCKCOLOR;
+		public static final Color TIMERBARCOLOR = BUTTONCOLOR;
 		public static final Color LAST5SECCOLOR = WASABI2;
+		
 	}
 	
 	public static class Textures

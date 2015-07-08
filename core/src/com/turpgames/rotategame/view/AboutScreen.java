@@ -1,13 +1,17 @@
 package com.turpgames.rotategame.view;
 
 import com.turpgames.framework.v0.ITexture;
+import com.turpgames.framework.v0.component.Button2;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.component.ImageButton;
 import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.util.Game;
+import com.turpgames.rotategame.components.ArcadeButton;
 import com.turpgames.rotategame.components.GameLogo;
+import com.turpgames.rotategame.components.texts.SmallText;
+import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Screens;
 import com.turpgames.rotategame.utils.R.Textures;
 
@@ -18,6 +22,7 @@ public class AboutScreen extends Screen {
 	private AboutButton facebookButton;
 	private AboutButton twitterButton;
 	private AboutButton webSiteButton;
+	private ArcadeButton btnMenu;
 
 	@Override
 	public void init() {
@@ -27,16 +32,27 @@ public class AboutScreen extends Screen {
 		initFacebookButton();
 		initTwitterButton();
 		initWebSiteButton();
+		
+		btnMenu = new ArcadeButton("Menu");
+		btnMenu.setLocation((Game.getVirtualWidth() - btnMenu.getWidth()) / 2, R.HUDPAD * 3);
+		btnMenu.setListener(new IButtonListener() {
+			@Override
+			public void onButtonTapped() {
+//				levelWon();
+				ScreenManager.instance.switchTo(R.Screens.menu, false);
+			}
+		});
+		registerDrawable(btnMenu, Game.LAYER_BACKGROUND);
 
 		registerDrawable(new GameLogo(), Game.LAYER_SCREEN);
 	}
 
 	private void initVersionText() {
-		Text text = new Text();
+		Text text = new SmallText();
+		text.getColor().set(R.Colors.BLOCKCOLOR);
 		text.setText("v" + Game.getVersion());
-		text.setFontScale(0.66f);
 		text.setAlignment(Text.HAlignCenter, Text.VAlignTop);
-		text.setPadY(125f);
+		text.setPadY(R.HUDPAD * 6);
 		registerDrawable(text, Game.LAYER_SCREEN);
 	}
 	
@@ -83,6 +99,7 @@ public class AboutScreen extends Screen {
 		facebookButton.activate();
 		twitterButton.activate();
 		webSiteButton.activate();
+		btnMenu.activate();
 	}
 
 	@Override
@@ -90,6 +107,7 @@ public class AboutScreen extends Screen {
 		facebookButton.deactivate();
 		twitterButton.deactivate();
 		webSiteButton.deactivate();
+		btnMenu.deactivate();
 
 		return super.onBeforeDeactivate();
 	}

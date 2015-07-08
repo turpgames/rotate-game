@@ -24,7 +24,7 @@ public class MapData {
 	}
 
 	public static int[][] randMap() {
-		boolean[][][] connectionsMap = new boolean[5][5][4];
+		boolean[][][] connectionsMap = new boolean[R.ROWNUMBER][R.COLNUMBER][4];
 
 		for (int i = 0; i < R.ROWNUMBER; i++) {
 			for (int j = 0; j < R.COLNUMBER; j++) {
@@ -53,7 +53,7 @@ public class MapData {
 			}
 		}
 
-		int[][] map = new int[5][5];
+		int[][] map = new int[R.ROWNUMBER][R.COLNUMBER];
 		int trues;
 		for (int i = 0; i < R.ROWNUMBER; i++) {
 			for (int j = 0; j < R.COLNUMBER; j++) {
@@ -85,13 +85,13 @@ public class MapData {
 					map[i][j] = Block.CONN4;
 			}
 		}
-//		return map;
-		return new int[][]{
-	     		{2, 2, 0, 2, 2},
-	    		{2, 2, 0, 2, 2},
-	    		{0, 0, 0, 0, 0},
-	    		{2, 2, 0, 2, 2},
-	    		{2, 2, 0, 2, 2}};
+		return map;
+//		return new int[][]{
+//	     		{2, 2, 0, 0, 0},
+//	    		{2, 2, 0, 0, 0},
+//	    		{0, 0, 0, 0, 0},
+//	    		{0, 0, 0, 0, 0},
+//	    		{0, 0, 0, 0, 0}};
 //		return new int[][]{
 //	     		{0, 1, 0, 1, 0},
 //	    		{0, 3, 0, 3, 0},

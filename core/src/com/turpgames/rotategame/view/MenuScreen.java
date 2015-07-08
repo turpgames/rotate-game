@@ -14,28 +14,25 @@ public class MenuScreen extends Screen {
 	private static final int BUTTON_SPACE = 10;
 	private static final int BUTTONS_OFFSET = (int)((Game.getVirtualHeight() - (NUMBER_OF_BUTTONS * R.BUTTONHEIGHT + (NUMBER_OF_BUTTONS - 1) * BUTTON_SPACE)) / 2 - Game.getVirtualHeight() / 10);
 
-	private ArcadeButton btnPlay, btnMaster, btnHisc, btnAbout; 
+	private ArcadeButton btnPlay, btnAbout; 
 	
 	@Override
 	public void init() {
 		super.init();
 		btnPlay = createButton(Screens.play, "Play", BUTTONS_OFFSET + 3*R.BUTTONHEIGHT + 3*BUTTON_SPACE);
-		btnMaster = createButton(Screens.master, "Master", BUTTONS_OFFSET + 2*R.BUTTONHEIGHT + 2*BUTTON_SPACE);
-		btnHisc = createButton(Screens.master, "Hi-Sc", BUTTONS_OFFSET + R.BUTTONHEIGHT + BUTTON_SPACE);
-		btnAbout = createButton(Screens.master, "About", BUTTONS_OFFSET);
+//		btnMaster = createButton(Screens.master, "Master", BUTTONS_OFFSET + 2*R.BUTTONHEIGHT + 2*BUTTON_SPACE);
+//		btnHisc = createButton(Screens.master, "Hi-Sc", BUTTONS_OFFSET + R.BUTTONHEIGHT + BUTTON_SPACE);
+//		
+		btnAbout = createButton(Screens.about, "About", BUTTONS_OFFSET + R.BUTTONHEIGHT + BUTTON_SPACE);
 		GameLogo logo = new GameLogo();
 		registerDrawable(logo, Game.LAYER_BACKGROUND);
 		registerDrawable(btnPlay, Game.LAYER_BACKGROUND);
-		registerDrawable(btnMaster, Game.LAYER_BACKGROUND);
-		registerDrawable(btnHisc, Game.LAYER_BACKGROUND);
 		registerDrawable(btnAbout, Game.LAYER_BACKGROUND);
 	}
 	
 	@Override
 	protected void onAfterActivate() {
 		btnPlay.activate();
-		btnMaster.activate();
-		btnHisc.activate();
 		btnAbout.activate();
 		super.onAfterActivate();
 	}
@@ -43,8 +40,6 @@ public class MenuScreen extends Screen {
 	@Override
 	protected void onAfterDeactivate() {
 		btnPlay.deactivate();
-		btnMaster.deactivate();
-		btnHisc.deactivate();
 		btnAbout.deactivate();
 		super.onAfterDeactivate();
 	}

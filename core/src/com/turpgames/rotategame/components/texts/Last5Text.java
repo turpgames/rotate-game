@@ -3,10 +3,9 @@ package com.turpgames.rotategame.components.texts;
 import com.turpgames.framework.v0.effects.flash.IFlashEffectSubject;
 import com.turpgames.framework.v0.impl.Text;
 
-public class NormalText extends Text implements IFlashEffectSubject {
-
-	public NormalText() {
-		super("NokiaNormal", false, false);
+public class Last5Text extends Text implements IFlashEffectSubject {
+	public Last5Text() {
+		super("NokiaLast", false, false);
 	}
 
 	@Override
