@@ -6,6 +6,16 @@
 
     <params>
         <param
+            key="scoremult"
+            value="30" />
+        <param
+            key="startscore"
+            value="70" />
+        <param
+            key="matrixsize"
+            value="5" />
+        
+        <param
             key="debug"
             value="false" />
 
@@ -172,7 +182,7 @@
                 path="fonts/nokia128.fnt" />
             <font
                 id="NokiaLast"
-                path="fonts/nokialast.fnt" />
+                path="fonts/nokialast240.fnt" />
         </fonts>
 
         <textures>

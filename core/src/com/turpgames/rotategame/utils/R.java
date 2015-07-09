@@ -3,35 +3,36 @@ package com.turpgames.rotategame.utils;
 import com.turpgames.framework.v0.ITexture;
 import com.turpgames.framework.v0.util.Color;
 import com.turpgames.framework.v0.util.Game;
+import com.turpgames.utils.Util;
 
 public class R {
-	public static final int BUTTONWIDTH =  230;
-	public static final int BUTTONHEIGHT =  98;
-	public static final int BUTTONOFFSETX =  10;
+	public static final int ROWNUMBER = Util.Strings.parseInt(Game.getParam("matrixsize"));
+	public static final int COLNUMBER = Util.Strings.parseInt(Game.getParam("matrixsize"));
 	
-	public static final int BLOCKSIZE = 70;
-	public static final int BLOCKHIGHLIGHTOFFSET = 6;
+	public static final int UNIT = (int) (Game.getVirtualHeight() / 80);
+	public static final int BUTTONWIDTH =  UNIT * 23;
+	public static final int BUTTONHEIGHT =  UNIT * 10;
+	public static final int BUTTONOFFSETX =  UNIT;
 	
-	public static final int ROWNUMBER = 7;
-	public static final int COLNUMBER = 7;
-
+	public static final int BLOCKSIZE = UNIT * 40 / ROWNUMBER;
+	
 	public static final float MAPOFFSETX = ((Game.getVirtualWidth() - ROWNUMBER * BLOCKSIZE) / 2);
-//	public static final int MAPOFFSETY = (int) ((Game.getVirtualHeight() - COLNUMBER * BLOCKSIZE) / 2);
-	public static final float MAPOFFSETY = Game.getVirtualHeight() / 12;
+	public static final float MAPOFFSETY = UNIT * 7;
 
-	public static final float BARWIDTH = 12;
+	public static final float BARWIDTH = UNIT * 1.5f;
 	public static final float LEVELFRAMEOFFSETX = MAPOFFSETX - BARWIDTH;
 	public static final float LEVELFRAMEOFFSETY = MAPOFFSETY - BARWIDTH;
 	public static final float LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
 	public static final float LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
 	
-	public static final float HUDPAD = MAPOFFSETX;
+//	public static final float HUDPAD = UNIT * 3;
 	
 	//public static final int MAPOFFSETX = 50;
 	//public static final int MAPOFFSETY = 50;
 	
-	public static final int STARTSCORE = 60;
-	public static final int LEVELSCOREMULT = 30;
+	public static final int STARTSCORE = Util.Strings.parseInt(Game.getParam("startscore"));
+//	public static final int STARTSCORE = 5;
+	public static final int LEVELSCOREMULT = Util.Strings.parseInt(Game.getParam("scoremult"));
 	
 	public static class Connection {
 		public static final int EAST = 0;
@@ -61,7 +62,6 @@ public class R {
 		public static final Color WASABI4 = Color.fromHex("#E1EDB9FF");
 		public static final Color WASABI5 = Color.fromHex("#F0F2EBFF");
 		
-		
 		public static final Color TITLECOLOR = WASABI1;
 		public static final Color BACKGROUND = WASABI5;
 		public static final Color FADECOLOR = WASABI5;
@@ -73,7 +73,6 @@ public class R {
 		public static final Color LEVELFRAMECOLOR = BLOCKCOLOR;
 		public static final Color TIMERBARCOLOR = BUTTONCOLOR;
 		public static final Color LAST5SECCOLOR = WASABI2;
-		
 	}
 	
 	public static class Textures

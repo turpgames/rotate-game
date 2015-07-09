@@ -35,8 +35,8 @@ public class ControlListener extends InputListener implements IDrawable {
 	}
 	
 	private void dealignHighlight() {
-		highlight.getLocation().x = -100;
-		highlight.getLocation().y = -100;
+		highlight.getLocation().x = -300;
+		highlight.getLocation().y = -300;
 	}
 	
 	@Override

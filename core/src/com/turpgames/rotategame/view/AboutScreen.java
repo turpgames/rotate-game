@@ -1,7 +1,6 @@
 package com.turpgames.rotategame.view;
 
 import com.turpgames.framework.v0.ITexture;
-import com.turpgames.framework.v0.component.Button2;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.component.ImageButton;
 import com.turpgames.framework.v0.impl.Screen;
@@ -34,7 +33,7 @@ public class AboutScreen extends Screen {
 		initWebSiteButton();
 		
 		btnMenu = new ArcadeButton("Menu");
-		btnMenu.setLocation((Game.getVirtualWidth() - btnMenu.getWidth()) / 2, R.HUDPAD * 3);
+		btnMenu.setLocation((Game.getVirtualWidth() - btnMenu.getWidth()) / 2, R.UNIT * 3);
 		btnMenu.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
@@ -52,7 +51,7 @@ public class AboutScreen extends Screen {
 		text.getColor().set(R.Colors.BLOCKCOLOR);
 		text.setText("v" + Game.getVersion());
 		text.setAlignment(Text.HAlignCenter, Text.VAlignTop);
-		text.setPadY(R.HUDPAD * 6);
+		text.setPadY(R.UNIT * 18);
 		registerDrawable(text, Game.LAYER_SCREEN);
 	}
 	

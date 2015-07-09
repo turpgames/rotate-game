@@ -40,9 +40,9 @@ public class LevelTimer implements IDrawable {
 		last5Text.getColor().set(R.Colors.BLOCKCOLOR);
 		last5Text.getColor().a = 0.45f;
 		last5Text.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
-		last5Text.setPadY(R.MAPOFFSETY);
+		last5Text.setPadY(R.LEVELFRAMEOFFSETX + (R.LEVELFRAMEHEIGHT - last5Text.getTextAreaHeight()) / 2);
 		
-		last5Flash = new FlashEffect(last5Text, R.Colors.LAST5SECCOLOR, 7);
+		last5Flash = new FlashEffect(last5Text, R.Colors.LAST5SECCOLOR, 6);
 		last5Flash.setDuration(10000);
 		last5Flash.start();
 		

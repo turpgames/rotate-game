@@ -1,4 +1,4 @@
-package com.turpgames.rotategame.android;
+package com.turpgames.rotategame;
 
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.turpgames.framework.v0.android.AndroidGameActivity;

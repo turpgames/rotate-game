@@ -1,6 +1,7 @@
 package com.turpgames.rotategame.components.texts;
 
-public class LevelResultText extends NormalText {
+
+public class LevelResultText extends SmallText {
 	private static float TIME = 6; 
 	private float timer;
 	

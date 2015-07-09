@@ -19,11 +19,8 @@ public class MenuScreen extends Screen {
 	@Override
 	public void init() {
 		super.init();
-		btnPlay = createButton(Screens.play, "Play", BUTTONS_OFFSET + 3*R.BUTTONHEIGHT + 3*BUTTON_SPACE);
-//		btnMaster = createButton(Screens.master, "Master", BUTTONS_OFFSET + 2*R.BUTTONHEIGHT + 2*BUTTON_SPACE);
-//		btnHisc = createButton(Screens.master, "Hi-Sc", BUTTONS_OFFSET + R.BUTTONHEIGHT + BUTTON_SPACE);
-//		
-		btnAbout = createButton(Screens.about, "About", BUTTONS_OFFSET + R.BUTTONHEIGHT + BUTTON_SPACE);
+		btnPlay = createButton(Screens.play, "Play", BUTTONS_OFFSET + 2*R.BUTTONHEIGHT + 2*BUTTON_SPACE);		
+		btnAbout = createButton(Screens.about, "About", BUTTONS_OFFSET);
 		GameLogo logo = new GameLogo();
 		registerDrawable(logo, Game.LAYER_BACKGROUND);
 		registerDrawable(btnPlay, Game.LAYER_BACKGROUND);
@@ -55,5 +52,11 @@ public class MenuScreen extends Screen {
 			}
 		});
 		return btn;
+	}
+	
+	@Override
+	protected boolean onBack() {
+		Game.exit();
+		return super.onBack();
 	}
 }

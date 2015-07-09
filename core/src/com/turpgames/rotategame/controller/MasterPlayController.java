@@ -1,9 +1,9 @@
 package com.turpgames.rotategame.controller;
 
+import com.turpgames.framework.v0.component.Button2;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.effects.flash.FlashEffect;
 import com.turpgames.framework.v0.impl.Text;
-import com.turpgames.framework.v0.util.Color;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.components.ArcadeButton;
 import com.turpgames.rotategame.components.texts.LevelResultText;
@@ -37,21 +37,22 @@ public class MasterPlayController extends LevelController {
 		levelTimer = new LevelTimer(this);
 		generalDrawables.add(0, levelTimer);
 		
-		levelTitle = new XLargeText();
-		levelTitle.getColor().set(R.Colors.BLOCKCOLOR);
-		levelTitle.setAlignment(Text.HAlignCenter, Text.VAlignTop);
-		levelTitle.setPadding(0, R.HUDPAD);
-		generalDrawables.add(levelTitle);
-		
+		float scoreTextYPad = R.LEVELFRAMEOFFSETY + R.BLOCKSIZE * R.COLNUMBER + R.BARWIDTH * 2 + R.UNIT * 4;
 		scoreText = new NormalText();
 		scoreText.getColor().set(R.Colors.BLOCKCOLOR);
-		scoreText.setAlignment(Text.HAlignCenter, Text.VAlignTop);
-		scoreText.setPadding(0, R.HUDPAD * 6);
+		scoreText.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
+		scoreText.setPadding(0, scoreTextYPad);
 		generalDrawables.add(scoreText);
+		
+		levelTitle = new XLargeText();
+		levelTitle.getColor().set(R.Colors.BLOCKCOLOR);
+		levelTitle.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
+		levelTitle.setPadding(0, scoreTextYPad + R.UNIT * 5);
+		generalDrawables.add(levelTitle);
 		
 		levelResultText = new LevelResultText();
 		levelResultText.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
-		levelResultText.setPadY(2 * R.HUDPAD / 3);
+		levelResultText.setPadY(scoreTextYPad - R.UNIT * 2.5f);
 		levelResultText.getColor().set(R.Colors.BLOCKCOLOR);
 		generalDrawables.add(levelResultText);
 		
@@ -59,14 +60,20 @@ public class MasterPlayController extends LevelController {
 		gameWonFlash.setDuration(100);
 
 		btnRestart = new ArcadeButton("Restart");
-		btnRestart.setLocation((Game.getVirtualWidth() - btnRestart.getWidth()) / 2, R.HUDPAD * 5);
+//		btnRestart.setLocation((Game.getVirtualWidth() - btnRestart.getWidth()) / 2, R.UNIT * 55);
+		btnRestart.setLocation(Button2.ne, R.LEVELFRAMEOFFSETY - R.UNIT * 2, R.LEVELFRAMEOFFSETY - R.UNIT * 2);
 		btnRestart.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
 				start();
 			}
 		});
-		btnMenu.setLocation((Game.getVirtualWidth() - btnRestart.getWidth()) / 2, R.HUDPAD * 9);
+//		btnMenu.setLocation((Game.getVirtualWidth() - btnMenu.getWidth()) / 2,  R.UNIT * 65);
+		btnMenu.setLocation(Button2.nw, R.LEVELFRAMEOFFSETY - R.UNIT * 2, R.LEVELFRAMEOFFSETY - R.UNIT * 2);
+		btnRestart.activate();
+		btnMenu.activate();
+		generalDrawables.add(btnRestart);
+		generalDrawables.add(btnMenu);
 		
 		start();
 	}
@@ -74,10 +81,6 @@ public class MasterPlayController extends LevelController {
 	protected void start() {
 		score = R.STARTSCORE;
 		mapIndex = 0;
-		generalDrawables.remove(btnRestart);
-		generalDrawables.remove(btnMenu);
-		btnRestart.deactivate();
-		btnMenu.deactivate();
 		
 		newLevel();
 
@@ -89,10 +92,6 @@ public class MasterPlayController extends LevelController {
 		super.levelLost();
 		levelResultText.setText("Time up...");
 		gameWonFlash.stop();
-		btnRestart.activate();
-		btnMenu.activate();
-		generalDrawables.add(btnRestart);
-		generalDrawables.add(btnMenu);
 		
 		level.levelIsFinished = true;
 		levelTimer.stop();
@@ -105,14 +104,16 @@ public class MasterPlayController extends LevelController {
 	public void levelWon() {
 		super.levelWon();
 		
-		newLevel();
-		
+		addedScore = R.LEVELSCOREMULT * mapIndex;
 		int netScore = addedScore - lostScore;
-		levelResultText.setText("+ " + addedScore + " - " + lostScore + " = " + 
-				(netScore < 0 ? " - " : " + ") + netScore + " points.");
+		levelResultText.setText("+" + addedScore + "-" + lostScore + "= net " + 
+				(netScore < 0 ? "" : "+") + netScore);
 		gameWonFlash.start();
-		
+		lostScore = 0;
+		score += addedScore;
 		listener.start();
+
+		newLevel();
 	}
 
 	private void newLevel() {
@@ -120,9 +121,6 @@ public class MasterPlayController extends LevelController {
 		generalDrawables.remove(level);
 		level = new Level(this, mapData);
 		generalDrawables.add(2, level);
-		addedScore = R.LEVELSCOREMULT * mapIndex;
-		lostScore = 0;
-		score += addedScore;
 		mapIndex++;
 		levelTimer.start(score / mapIndex);
 		setScoreText();
@@ -153,7 +151,7 @@ public class MasterPlayController extends LevelController {
 	}
 	
 	private void setLevelTitle() {
-		levelTitle.setText("LEVEL\n" + mapIndex);
+		levelTitle.setText("LEVEL " + mapIndex);
 	}
 
 	public void secondPassed() {

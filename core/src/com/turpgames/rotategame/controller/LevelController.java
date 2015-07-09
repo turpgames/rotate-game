@@ -38,7 +38,7 @@ abstract public class LevelController extends InputListener implements IDrawable
 		}
 		
 		btnMenu = new ArcadeButton("Menu");
-		btnMenu.setLocation(Button2.nw, R.HUDPAD, R.HUDPAD);
+		btnMenu.setLocation(Button2.nw, R.UNIT * 3, R.UNIT * 3);
 		btnMenu.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {

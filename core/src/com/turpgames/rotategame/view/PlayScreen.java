@@ -1,8 +1,10 @@
 package com.turpgames.rotategame.view;
 
 import com.turpgames.framework.v0.impl.Screen;
+import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.controller.MasterPlayController;
+import com.turpgames.rotategame.utils.R;
 
 public class PlayScreen extends Screen implements IScreenView {
 
@@ -32,5 +34,11 @@ public class PlayScreen extends Screen implements IScreenView {
 	public void update() {
 		super.update();
 		controller.update();
+	}
+	
+	@Override
+	protected boolean onBack() {
+		ScreenManager.instance.switchTo(R.Screens.menu, false);
+		return super.onBack();
 	}
 }
