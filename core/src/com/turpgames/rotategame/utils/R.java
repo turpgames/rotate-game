@@ -34,6 +34,8 @@ public class R {
 //	public static final int STARTSCORE = 5;
 	public static final int LEVELSCOREMULT = Util.Strings.parseInt(Game.getParam("scoremult"));
 	
+	
+	
 	public static class Connection {
 		public static final int EAST = 0;
 		public static final int NORTH = 1;
