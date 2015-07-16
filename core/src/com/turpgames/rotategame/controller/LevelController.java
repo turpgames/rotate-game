@@ -5,7 +5,7 @@ import com.turpgames.framework.v0.component.Button2;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.impl.InputListener;
 import com.turpgames.framework.v0.impl.ScreenManager;
-import com.turpgames.rotategame.components.ArcadeButton;
+import com.turpgames.rotategame.components.ControlButton;
 import com.turpgames.rotategame.objects.Block;
 import com.turpgames.rotategame.objects.ControlListener;
 import com.turpgames.rotategame.objects.DrawableContainer;
@@ -18,7 +18,7 @@ abstract public class LevelController extends InputListener implements IDrawable
 	protected int[][] mapData;
 	
 	protected Level level;
-	protected ArcadeButton btnMenu;
+	protected ControlButton btnMenu;
 
 	protected DrawableContainer generalDrawables;
 	public LevelController() {
@@ -37,7 +37,7 @@ abstract public class LevelController extends InputListener implements IDrawable
 			generalDrawables.add(level);
 		}
 		
-		btnMenu = new ArcadeButton("Menu");
+		btnMenu = new ControlButton(R.Textures.btnMenu);
 		btnMenu.setLocation(Button2.nw, R.UNIT * 3, R.UNIT * 3);
 		btnMenu.setListener(new IButtonListener() {
 			@Override

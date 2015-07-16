@@ -35,18 +35,19 @@ public class Level implements IDrawable {
 	}
 	
 	public void randomizeBlocks() {
-		int r;
+		int r, sum = 0;
 		for (int i = 0; i < blocks.length; i++) {
 			for (int j = 0; j < blocks[i].length; j++) {
-				r = Random.randInt() % 4;
-				while (r >= 0)
+				r = Random.randInt(0,  4);
+				sum += r;
+				while (r > 0)
 				{
 					blocks[i][j].rotate();
 					r--;
 				}
 			}
 		}
-		
+		System.out.println(sum);
 		initializeUnconnecteds();
 	}
 	

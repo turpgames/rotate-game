@@ -6,14 +6,14 @@
 
     <params>
         <param
-            key="scoremult"
-            value="30" />
+            key="starttime"
+            value="80" />
         <param
-            key="startscore"
-            value="70" />
+            key="timedec"
+            value="10" />
         <param
             key="matrixsize"
-            value="5" />
+            value="8" />
         
         <param
             key="debug"
@@ -186,7 +186,13 @@
         </fonts>
 
         <textures>
-
+			<texture
+			    id="btn_menu"
+			    path="img/back.png" />
+			<texture
+			    id="btn_restart"
+			    path="img/restart.png" />
+			
             <texture
                 id="turp_logo"
                 path="img/turpgames_logo.png"

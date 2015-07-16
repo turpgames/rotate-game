@@ -10,17 +10,13 @@ import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Screens;
 
 public class MenuScreen extends Screen {
-	private static final int NUMBER_OF_BUTTONS = 4;
-	private static final int BUTTON_SPACE = 10;
-	private static final int BUTTONS_OFFSET = (int)((Game.getVirtualHeight() - (NUMBER_OF_BUTTONS * R.BUTTONHEIGHT + (NUMBER_OF_BUTTONS - 1) * BUTTON_SPACE)) / 2 - Game.getVirtualHeight() / 10);
-
 	private ArcadeButton btnPlay, btnAbout; 
 	
 	@Override
 	public void init() {
 		super.init();
-		btnPlay = createButton(Screens.play, "Play", BUTTONS_OFFSET + 2*R.BUTTONHEIGHT + 2*BUTTON_SPACE);		
-		btnAbout = createButton(Screens.about, "About", BUTTONS_OFFSET);
+		btnPlay = createButton(Screens.play, "Play", R.MENUBUTTONSOFFSETX + 2 * R.BUTTONHEIGHT + 2 * R.MENUBUTTONSPACE);		
+		btnAbout = createButton(Screens.about, "About", R.MENUBUTTONSOFFSETX);
 		GameLogo logo = new GameLogo();
 		registerDrawable(logo, Game.LAYER_BACKGROUND);
 		registerDrawable(btnPlay, Game.LAYER_BACKGROUND);

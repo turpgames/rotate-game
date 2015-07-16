@@ -38,11 +38,11 @@ public class LevelTimer implements IDrawable {
 		last5Text.setText("");
 		last5Text.setFontScale(2);
 		last5Text.getColor().set(R.Colors.BLOCKCOLOR);
-		last5Text.getColor().a = 0.45f;
+		last5Text.getColor().a = 0.55f;
 		last5Text.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
 		last5Text.setPadY(R.LEVELFRAMEOFFSETX + (R.LEVELFRAMEHEIGHT - last5Text.getTextAreaHeight()) / 2);
 		
-		last5Flash = new FlashEffect(last5Text, R.Colors.LAST5SECCOLOR, 6);
+		last5Flash = new FlashEffect(last5Text, R.Colors.LAST5SECCOLOR, 5);
 		last5Flash.setDuration(10000);
 		last5Flash.start();
 		
@@ -84,9 +84,11 @@ public class LevelTimer implements IDrawable {
 	
 	@Override
 	public void draw() {
-		if (currTime < 9) {
+		if (timerIsStopped)
+			return;
+		
+		if (currTime < 9)
 			last5Text.draw();
-		}
 		//timeText.draw();
 		
 		// Frame

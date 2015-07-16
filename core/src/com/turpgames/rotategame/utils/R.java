@@ -14,10 +14,10 @@ public class R {
 	public static final int BUTTONHEIGHT =  UNIT * 10;
 	public static final int BUTTONOFFSETX =  UNIT;
 	
-	public static final int BLOCKSIZE = UNIT * 40 / ROWNUMBER;
+	public static final int BLOCKSIZE = UNIT * 50 / ROWNUMBER;
 	
 	public static final float MAPOFFSETX = ((Game.getVirtualWidth() - ROWNUMBER * BLOCKSIZE) / 2);
-	public static final float MAPOFFSETY = UNIT * 7;
+	public static final float MAPOFFSETY = UNIT * 5;
 
 	public static final float BARWIDTH = UNIT * 1.5f;
 	public static final float LEVELFRAMEOFFSETX = MAPOFFSETX - BARWIDTH;
@@ -25,14 +25,23 @@ public class R {
 	public static final float LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
 	public static final float LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
 	
+	public final static float BUTTONSPACING = Game.scale(UNIT * 2);
+	public final static float BUTTONSIZE = 64;
+	public final static float BUTTONSIZETOSCREEN = Game.scale(BUTTONSIZE);
+	
+	public static final int MENUNUMBEROFBUTTONS = 4;
+	public static final int MENUBUTTONSPACE = R.UNIT;
+	public static final int MENUBUTTONSOFFSETX = (int)((Game.getVirtualHeight() - (MENUNUMBEROFBUTTONS * R.BUTTONHEIGHT + (MENUNUMBEROFBUTTONS - 1) * MENUBUTTONSPACE)) / 2 - Game.getVirtualHeight() / 10);
+
+	
 //	public static final float HUDPAD = UNIT * 3;
 	
 	//public static final int MAPOFFSETX = 50;
 	//public static final int MAPOFFSETY = 50;
 	
-	public static final int STARTSCORE = Util.Strings.parseInt(Game.getParam("startscore"));
+	public static final int STARTTIME = Util.Strings.parseInt(Game.getParam("starttime"));
 //	public static final int STARTSCORE = 5;
-	public static final int LEVELSCOREMULT = Util.Strings.parseInt(Game.getParam("scoremult"));
+	public static final int LEVELTIMEDEC = Util.Strings.parseInt(Game.getParam("timedec"));
 	
 	
 	
@@ -79,6 +88,9 @@ public class R {
 	
 	public static class Textures
 	{
+		public static final ITexture btnMenu = Game.getResourceManager().getTexture("btn_menu");
+		public static final ITexture btnRestart = Game.getResourceManager().getTexture("btn_restart");
+		
 		public static final ITexture facebookbutton = Game.getResourceManager().getTexture("ab_facebook");
 		public static final ITexture twitterbutton = Game.getResourceManager().getTexture("ab_twitter");
 		public static final ITexture turpbutton = Game.getResourceManager().getTexture("ab_turp");
