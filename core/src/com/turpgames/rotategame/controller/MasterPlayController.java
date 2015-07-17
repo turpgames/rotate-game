@@ -1,8 +1,11 @@
 package com.turpgames.rotategame.controller;
 
+import com.turpgames.framework.v0.IDrawable;
 import com.turpgames.framework.v0.component.Button;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.effects.flash.FlashEffect;
+import com.turpgames.framework.v0.impl.InputListener;
+import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.components.ControlButton;
@@ -10,35 +13,71 @@ import com.turpgames.rotategame.components.texts.LevelResultText;
 import com.turpgames.rotategame.components.texts.NormalText;
 import com.turpgames.rotategame.components.texts.XLargeText;
 import com.turpgames.rotategame.objects.Block;
+import com.turpgames.rotategame.objects.ControlListener;
+import com.turpgames.rotategame.objects.DrawableContainer;
 import com.turpgames.rotategame.objects.Level;
 import com.turpgames.rotategame.objects.LevelTimer;
 import com.turpgames.rotategame.objects.MapData;
 import com.turpgames.rotategame.utils.R;
 
-public class MasterPlayController extends LevelController {
+public class MasterPlayController extends InputListener implements IDrawable {
+	private static int CURRENTMATRIXSIZE = 2;
+	
+	private ControlListener listener;
+	
+	private int[][] mapData;
+	
+	private Level level;
+	private ControlButton btnMenu;
 
-	protected int mapIndex;
-	protected LevelTimer levelTimer;
+	private DrawableContainer generalDrawables;
 	
-	protected XLargeText levelTitle;
+	private int mapIndex;
+	private LevelTimer levelTimer;
+	
+	private XLargeText levelTitle;
 	private NormalText timeText;
-	protected int time;
-	protected int lostTime;
-	protected int addedTime;
+	private int time;
+//	private int lostTime;
+	private int addedTime;
 	
-	protected LevelResultText levelResultText;
-	protected FlashEffect gameWonFlash;
-	protected FlashEffect restartFlash;
+	private LevelResultText levelResultText;
+	private FlashEffect gameWonFlash;
+	private FlashEffect restartFlash;
 	
-	protected ControlButton btnRestart;
-	
+	private ControlButton btnRestart;
+	/***
+	 * 	8	30	15	0.53
+		9.3	60	20	0.46
+		26	100	25	1.04
+		33.2	150	30	1.10
+		53.8	210	35	1.53
+		78.2	280	40	1.95
+		94.2	360	45	2.09
+	 */
 	public MasterPlayController() {
-		super();
+		generalDrawables = new DrawableContainer();
+		
+		listener = new ControlListener(this);
+		generalDrawables.add(listener);
+		
+		btnMenu = new ControlButton(R.Textures.btnMenu);
+		btnMenu.setLocation(Button.AlignNW, R.BUTTONSPACING, R.BUTTONSPACING);
+		btnMenu.setListener(new IButtonListener() {
+			@Override
+			public void onButtonTapped() {
+//				levelWon();
+				ScreenManager.instance.switchTo(R.Screens.menu, false);
+			}
+		});
+		generalDrawables.add(btnMenu);
+		generalDrawables.activate();
+		
 		
 		levelTimer = new LevelTimer(this);
 		generalDrawables.add(0, levelTimer);
 		
-		float timeTextYPad = R.LEVELFRAMEOFFSETY + R.BLOCKSIZE * R.COLNUMBER + R.BARWIDTH * 2 + R.UNIT * 7;
+		float timeTextYPad = R.LEVELFRAMEOFFSETY + R.LEVELSIZE + R.BARWIDTH * 2 + R.UNIT * 7;
 		timeText = new NormalText();
 		timeText.getColor().set(R.Colors.BLOCKCOLOR);
 		timeText.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
@@ -74,7 +113,7 @@ public class MasterPlayController extends LevelController {
 		restartFlash.setDuration(100);
 		
 //		btnMenu.setLocation((Game.getVirtualWidth() - btnMenu.getWidth()) / 2,  R.UNIT * 65);
-		btnMenu.setLocation(Button.AlignNW, R.BUTTONSPACING, R.BUTTONSPACING);
+		
 		btnRestart.activate();
 		btnMenu.activate();
 		generalDrawables.add(btnRestart);
@@ -84,17 +123,15 @@ public class MasterPlayController extends LevelController {
 	}
 	
 	protected void start() {
-		time = R.STARTTIME;
 		mapIndex = 0;
-		
+		CURRENTMATRIXSIZE = 2;
+		time = CURRENTMATRIXSIZE * R.LEVELTIMEDEC;
 		newLevel();
-
-		listener.start();
 	}
 	
-	@Override
 	public void levelLost() {
-		super.levelLost();
+		listener.stop();
+		
 		levelResultText.setText("Time up...");
 		gameWonFlash.stop();
 		restartFlash.start();
@@ -106,37 +143,43 @@ public class MasterPlayController extends LevelController {
 		setTimeText();
 	}
 	
-	@Override
 	public void levelWon() {
-		super.levelWon();
+		listener.stop();
 		
-		addedTime = R.STARTTIME - R.LEVELTIMEDEC * mapIndex;
+		addedTime = R.LEVELTIMEDEC * (CURRENTMATRIXSIZE - mapIndex);
 //		int netTime = addedTime - lostTime;
 //		levelResultText.setText("+" + addedTime + "-" + lostTime + "= net " + 
 //				(netTime < 0 ? "" : "+") + netTime);
-		levelResultText.setText("+" + addedTime + "!");
+		if (addedTime != 0)
+			levelResultText.setText("+" + addedTime + "!");
+		else
+			levelResultText.setText("SIZE UP!");
 		gameWonFlash.start();
-		lostTime = 0;
+//		lostTime = 0;
 		time += addedTime;
-		listener.start();
 
 		newLevel();
 	}
 
 	private void newLevel() {
-		mapData = MapData.randMap();
-		generalDrawables.remove(level);
-		level = new Level(this, mapData);
-		generalDrawables.add(2, level);
 		mapIndex++;
+		if (mapIndex > CURRENTMATRIXSIZE) {
+			CURRENTMATRIXSIZE++;
+			mapIndex = 1;
+			time = CURRENTMATRIXSIZE * R.LEVELTIMEDEC;
+		}
+		
+		mapData = MapData.randMap(CURRENTMATRIXSIZE);
+		generalDrawables.remove(level);
+		level = new Level(this, mapData, CURRENTMATRIXSIZE);
+		generalDrawables.add(2, level);
 		levelTimer.start(time);
 		setTimeText();
 		setLevelTitle();
 		restartFlash.stop();
-		levelResultText.setText("+" + addedTime + "!");
+		listener.start(getBlockSize());
 	}
 	
-	@Override
 	public void blockClicked(Block block) {
 //		if (block.type == Block.CONN0 || block.type == Block.CONN4)
 //			return;
@@ -148,9 +191,7 @@ public class MasterPlayController extends LevelController {
 //		setTimeText();
 	}
 	
-	@Override
 	public void update() {
-		super.update();
 		levelTimer.update(Game.getDeltaTime());
 		levelResultText.update(Game.getDeltaTime());
 	}
@@ -160,15 +201,51 @@ public class MasterPlayController extends LevelController {
 	}
 	
 	private void setLevelTitle() {
-		levelTitle.setText("LEVEL " + mapIndex);
+		levelTitle.setText("Lvl " + mapIndex + "/" + CURRENTMATRIXSIZE);
 	}
 
 	public void secondPassed() {
-		lostTime += 1;
+//		lostTime += 1;
 		time -= 1;
 		if (time <= 0) {
 			time = 0;
 		}
 		setTimeText();
+	}
+	
+	@Override
+	public void draw() {
+		generalDrawables.draw();
+	}
+
+	@Override
+	public boolean touchDown(float x, float y, int pointer, int button) {
+		return listener.touchDown(x, y, pointer, button);
+	}
+
+	@Override
+	public boolean touchUp(float x, float y, int pointer, int button) {
+		return listener.touchUp(x, y, pointer, button);
+	}
+
+	@Override
+	public boolean touchDragged(float x, float y, int pointer) {
+		return listener.touchDragged(x, y, pointer);
+	}
+
+	public Block getTouchedBlock(float x, float y) {
+		return level.getTouchedBlock(x, y);
+	}
+
+	public void activate() {
+		
+	}
+
+	public void deactivate() {
+		
+	}
+	
+	public float getBlockSize() {
+		return R.LEVELSIZE / CURRENTMATRIXSIZE;
 	}
 }

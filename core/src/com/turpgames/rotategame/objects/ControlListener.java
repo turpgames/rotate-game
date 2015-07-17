@@ -5,24 +5,24 @@ import com.turpgames.framework.v0.impl.InputListener;
 import com.turpgames.framework.v0.impl.TexturedGameObject;
 import com.turpgames.framework.v0.util.GameUtils;
 import com.turpgames.framework.v0.util.Rectangle;
-import com.turpgames.rotategame.controller.LevelController;
+import com.turpgames.rotategame.controller.MasterPlayController;
 import com.turpgames.rotategame.utils.R;
 
 public class ControlListener extends InputListener implements IDrawable {
-	private LevelController parent;
+	private MasterPlayController parent;
 	private Rectangle frameRect;
 
 	private Block focusedBlock;
 	private TexturedGameObject highlight;
 	public boolean isActive;
 	
-	public ControlListener(LevelController parent) {
-		this.parent = parent;
-		this.frameRect = new Rectangle(R.MAPOFFSETX, R.MAPOFFSETY, R.ROWNUMBER * R.BLOCKSIZE, R.COLNUMBER * R.BLOCKSIZE);
+	public ControlListener(MasterPlayController controller) {
+		this.parent = controller;
+		this.frameRect = new Rectangle(R.MAPOFFSETX, R.MAPOFFSETY, R.LEVELSIZE, R.LEVELSIZE);
 		this.focusedBlock = null;
 		this.highlight = new TexturedGameObject(R.Textures.DOT) { };
-		highlight.setWidth(R.BLOCKSIZE);
-		highlight.setHeight(R.BLOCKSIZE);
+		highlight.setWidth(parent.getBlockSize());
+		highlight.setHeight(parent.getBlockSize());
 		highlight.getColor().set(R.Colors.BUTTONCOLOR);
 		dealignHighlight();
 		
@@ -87,7 +87,9 @@ public class ControlListener extends InputListener implements IDrawable {
 		isActive = false;
 	}
 	
-	public void start() {
+	public void start(float size) {
 		isActive = true;
+		highlight.setWidth(size);
+		highlight.setHeight(size);
 	}
 }

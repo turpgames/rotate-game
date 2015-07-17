@@ -55,8 +55,8 @@ public class Block extends GameObject {
 		}
 
 		this.getLocation().set(X, Y);
-		this.setWidth(R.BLOCKSIZE);
-		this.setHeight(R.BLOCKSIZE);
+		this.setWidth(parent.getBlockSize());
+		this.setHeight(parent.getBlockSize());
 		this.getColor().set(R.Colors.BLOCKCOLOR);
 		
 		unconnecteds = new boolean[4];

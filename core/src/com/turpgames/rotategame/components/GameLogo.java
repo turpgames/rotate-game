@@ -13,7 +13,7 @@ public class GameLogo implements IDrawable {
 		title = new XXLargeText();
 		title.setAlignment(Text.HAlignCenter, Text.VAlignTop);
 		title.setPadY(Game.getVirtualHeight() / 10);
-		title.setText("Rotate");
+		title.setText("Rot8");
 		title.getColor().set(R.Colors.BLOCKCOLOR);
 	}
 	

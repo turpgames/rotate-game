@@ -15,7 +15,7 @@ public class MenuScreen extends Screen {
 	@Override
 	public void init() {
 		super.init();
-		btnPlay = createButton(Screens.play, "Play", R.MENUBUTTONSOFFSETX + 2 * R.BUTTONHEIGHT + 2 * R.MENUBUTTONSPACE);		
+		btnPlay = createButton(Screens.tutorial, "Play", R.MENUBUTTONSOFFSETX + 2 * R.BUTTONHEIGHT + 2 * R.MENUBUTTONSPACE);		
 		btnAbout = createButton(Screens.about, "About", R.MENUBUTTONSOFFSETX);
 		GameLogo logo = new GameLogo();
 		registerDrawable(logo, Game.LAYER_BACKGROUND);
@@ -37,7 +37,7 @@ public class MenuScreen extends Screen {
 		super.onAfterDeactivate();
 	}
 	
-	private static ArcadeButton createButton(final String screen, final String label, float yOffset) {
+	protected static ArcadeButton createButton(final String screen, final String label, float yOffset) {
 		ArcadeButton btn = new ArcadeButton(label);
 		
 		btn.setLocation((Game.getVirtualWidth() - btn.getWidth()) / 2, yOffset);

@@ -2,33 +2,36 @@ package com.turpgames.rotategame.objects;
 
 import com.turpgames.framework.v0.IDrawable;
 import com.turpgames.framework.v0.util.GameUtils;
-import com.turpgames.rotategame.controller.LevelController;
+import com.turpgames.rotategame.controller.MasterPlayController;
 import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Connection;
 import com.turpgames.utils.Util.Random;
 
 public class Level implements IDrawable {
-	protected LevelController parent;
+	protected MasterPlayController parent;
 	protected Block[][] blocks;
 	
 	public boolean levelIsFinished;
+	private int matrixSize;
 	
-	public Level(LevelController parent, int[][] mapData) {
-		this.parent = parent;
+	public Level(MasterPlayController controller, int[][] mapData, int matrixSize) {
+		this.parent = controller;
 		this.levelIsFinished = false;
+		this.matrixSize = matrixSize;
 		
-		generateLevel(mapData);
+		generateLevel(mapData, matrixSize);
 		randomizeBlocks();
 	}
 	
 	
-	public void generateLevel(int[][] mapData) {
+	private void generateLevel(int[][] mapData, int matrixSize) {
+		float blockSize = R.LEVELSIZE / matrixSize;
 		blocks = new Block[mapData.length][mapData[0].length];
 		Block[] row;
 		for (int i = 0; i < mapData.length; i++) {
 			row = new Block[mapData[i].length];
 			for (int j = 0; j < mapData[i].length; j++) {
-				row[j] = new Block(this, R.MAPOFFSETX + j * R.BLOCKSIZE, R.MAPOFFSETY + (mapData.length - i - 1) * R.BLOCKSIZE, i, j, mapData[i][j], Random.randInt(4));
+				row[j] = new Block(this, R.MAPOFFSETX + j * blockSize, R.MAPOFFSETY + (mapData.length - i - 1) * blockSize, i, j, mapData[i][j], Random.randInt(4));
 			}
 			blocks[i] = row;
 		}
@@ -124,14 +127,14 @@ public class Level implements IDrawable {
 			block.unconnecteds[Connection.NORTH] = true;
 		}	
 		
-		if (row + 1 < R.ROWNUMBER) {
+		if (row + 1 < matrixSize) {
 			blocks[row + 1][col].unconnecteds[Connection.NORTH] = false;
 			if (blocks[row + 1][col].connections[Connection.NORTH] != block.connections[Connection.SOUTH]) {
 				blocks[row + 1][col].unconnecteds[Connection.NORTH] = true && blocks[row + 1][col].connections[Connection.NORTH];
 				block.unconnecteds[Connection.SOUTH] = true && block.connections[Connection.SOUTH];
 			}
 		}
-		else if (row + 1 >= R.ROWNUMBER && block.connections[Connection.SOUTH] == true) {
+		else if (row + 1 >= matrixSize && block.connections[Connection.SOUTH] == true) {
 			block.unconnecteds[Connection.SOUTH] = true;
 		}
 		
@@ -146,14 +149,14 @@ public class Level implements IDrawable {
 			block.unconnecteds[Connection.WEST] = true;
 		}	
 		
-		if (col + 1 < R.COLNUMBER) {
+		if (col + 1 < matrixSize) {
 			blocks[row][col + 1].unconnecteds[Connection.WEST] = false;
 			if (blocks[row][col + 1].connections[Connection.WEST] != block.connections[Connection.EAST]) {
 				blocks[row][col + 1].unconnecteds[Connection.WEST] = true && blocks[row][col + 1].connections[Connection.WEST];
 				block.unconnecteds[Connection.EAST] = true && block.connections[Connection.EAST];
 			}
 		}
-		else if (col + 1 >= R.COLNUMBER  && block.connections[Connection.EAST] == true) {
+		else if (col + 1 >= matrixSize  && block.connections[Connection.EAST] == true) {
 			block.unconnecteds[Connection.EAST] = true;
 		}
 		
@@ -196,5 +199,9 @@ public class Level implements IDrawable {
 				blocks[i][j].draw();
 			}
 		}
+	}
+
+	public float getBlockSize() {
+		return R.LEVELSIZE / matrixSize;
 	}
 }

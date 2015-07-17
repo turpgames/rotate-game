@@ -1,6 +1,5 @@
 package com.turpgames.rotategame.objects;
 
-import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Connection;
 import com.turpgames.utils.Util.Random;
 
@@ -23,11 +22,11 @@ public class MapData {
 		return true;
 	}
 
-	public static int[][] randMap() {
-		boolean[][][] connectionsMap = new boolean[R.ROWNUMBER][R.COLNUMBER][4];
+	public static int[][] randMap(int mapSize) {
+		boolean[][][] connectionsMap = new boolean[mapSize][mapSize][4];
 
-		for (int i = 0; i < R.ROWNUMBER; i++) {
-			for (int j = 0; j < R.COLNUMBER; j++) {
+		for (int i = 0; i < mapSize; i++) {
+			for (int j = 0; j < mapSize; j++) {
 				connectionsMap[i][j][0] = false;
 				connectionsMap[i][j][1] = false;
 				connectionsMap[i][j][2] = false;
@@ -35,8 +34,8 @@ public class MapData {
 			}
 		}
 
-		for (int i = 0; i < R.ROWNUMBER; i++) {
-			for (int j = 0; j < R.COLNUMBER - 1; j++) {
+		for (int i = 0; i < mapSize; i++) {
+			for (int j = 0; j < mapSize - 1; j++) {
 				if (randBool()) {
 					connectionsMap[i][j][Connection.EAST] = true;
 					connectionsMap[i][j + 1][Connection.WEST] = true;
@@ -44,8 +43,8 @@ public class MapData {
 			}
 		}
 
-		for (int i = 0; i < R.ROWNUMBER - 1; i++) {
-			for (int j = 0; j < R.COLNUMBER; j++) {
+		for (int i = 0; i < mapSize - 1; i++) {
+			for (int j = 0; j < mapSize; j++) {
 				if (randBool()) {
 					connectionsMap[i][j][Connection.SOUTH] = true;
 					connectionsMap[i + 1][j][Connection.NORTH] = true;
@@ -53,10 +52,10 @@ public class MapData {
 			}
 		}
 
-		int[][] map = new int[R.ROWNUMBER][R.COLNUMBER];
+		int[][] map = new int[mapSize][mapSize];
 		int trues;
-		for (int i = 0; i < R.ROWNUMBER; i++) {
-			for (int j = 0; j < R.COLNUMBER; j++) {
+		for (int i = 0; i < mapSize; i++) {
+			for (int j = 0; j < mapSize; j++) {
 				trues = 0;
 				for (int k = 0; k < 4; k++) {
 					if (connectionsMap[i][j][k])

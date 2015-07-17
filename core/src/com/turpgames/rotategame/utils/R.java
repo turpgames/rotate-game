@@ -6,24 +6,23 @@ import com.turpgames.framework.v0.util.Game;
 import com.turpgames.utils.Util;
 
 public class R {
-	public static final int ROWNUMBER = Util.Strings.parseInt(Game.getParam("matrixsize"));
-	public static final int COLNUMBER = Util.Strings.parseInt(Game.getParam("matrixsize"));
+//	public static final int ROWNUMBER = Util.Strings.parseInt(Game.getParam("matrixsize"));
+//	public static final int COLNUMBER = Util.Strings.parseInt(Game.getParam("matrixsize"));
 	
 	public static final int UNIT = (int) (Game.getVirtualHeight() / 80);
 	public static final int BUTTONWIDTH =  UNIT * 23;
 	public static final int BUTTONHEIGHT =  UNIT * 10;
 	public static final int BUTTONOFFSETX =  UNIT;
 	
-	public static final int BLOCKSIZE = UNIT * 50 / ROWNUMBER;
-	
-	public static final float MAPOFFSETX = ((Game.getVirtualWidth() - ROWNUMBER * BLOCKSIZE) / 2);
+	public static final float LEVELSIZE = UNIT * 50;
+	public static final float MAPOFFSETX = ((Game.getVirtualWidth() - LEVELSIZE) / 2);
 	public static final float MAPOFFSETY = UNIT * 5;
 
 	public static final float BARWIDTH = UNIT * 1.5f;
 	public static final float LEVELFRAMEOFFSETX = MAPOFFSETX - BARWIDTH;
 	public static final float LEVELFRAMEOFFSETY = MAPOFFSETY - BARWIDTH;
-	public static final float LEVELFRAMEWIDTH = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
-	public static final float LEVELFRAMEHEIGHT = R.ROWNUMBER * R.BLOCKSIZE + BARWIDTH * 2;
+	public static final float LEVELFRAMEWIDTH = LEVELSIZE + BARWIDTH * 2;
+	public static final float LEVELFRAMEHEIGHT = LEVELSIZE + BARWIDTH * 2;
 	
 	public final static float BUTTONSPACING = Game.scale(UNIT * 2);
 	public final static float BUTTONSIZE = 64;
@@ -32,18 +31,9 @@ public class R {
 	public static final int MENUNUMBEROFBUTTONS = 4;
 	public static final int MENUBUTTONSPACE = R.UNIT;
 	public static final int MENUBUTTONSOFFSETX = (int)((Game.getVirtualHeight() - (MENUNUMBEROFBUTTONS * R.BUTTONHEIGHT + (MENUNUMBEROFBUTTONS - 1) * MENUBUTTONSPACE)) / 2 - Game.getVirtualHeight() / 10);
-
 	
-//	public static final float HUDPAD = UNIT * 3;
-	
-	//public static final int MAPOFFSETX = 50;
-	//public static final int MAPOFFSETY = 50;
-	
-	public static final int STARTTIME = Util.Strings.parseInt(Game.getParam("starttime"));
-//	public static final int STARTSCORE = 5;
 	public static final int LEVELTIMEDEC = Util.Strings.parseInt(Game.getParam("timedec"));
-	
-	
+//	public static final int STARTTIME = Util.Strings.parseInt(Game.getParam("starttime"));
 	
 	public static class Connection {
 		public static final int EAST = 0;

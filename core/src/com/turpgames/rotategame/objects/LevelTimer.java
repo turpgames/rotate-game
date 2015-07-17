@@ -30,7 +30,7 @@ public class LevelTimer implements IDrawable {
 		timeText = new NormalText();
 		timeText.setText("");
 		timeText.setAlignment(Text.HAlignRight, Text.VAlignBottom);
-		timeText.setPadY(R.MAPOFFSETY + R.BLOCKSIZE * R.ROWNUMBER + 25);
+		timeText.setPadY(R.MAPOFFSETY + R.LEVELSIZE + 25);
 		timeText.getColor().set(R.Colors.BLOCKCOLOR);
 		//timeText.setAlignment(Text.HAlignCenter, Text.VAlignTop);
 		

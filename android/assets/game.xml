@@ -7,13 +7,13 @@
     <params>
         <param
             key="starttime"
-            value="80" />
+            value="20" />
         <param
             key="timedec"
             value="10" />
         <param
             key="matrixsize"
-            value="8" />
+            value="2" />
         
         <param
             key="debug"
