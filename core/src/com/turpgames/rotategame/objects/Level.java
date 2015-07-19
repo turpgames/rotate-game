@@ -23,26 +23,26 @@ public class Level implements IDrawable {
 		randomizeBlocks();
 	}
 	
-	
 	private void generateLevel(int[][] mapData, int matrixSize) {
-		float blockSize = R.LEVELSIZE / matrixSize;
-		blocks = new Block[mapData.length][mapData[0].length];
+		float blockSize = MasterPlayController.getBlockSize();
 		Block[] row;
+		blocks = new Block[mapData.length][mapData[0].length];
 		for (int i = 0; i < mapData.length; i++) {
 			row = new Block[mapData[i].length];
 			for (int j = 0; j < mapData[i].length; j++) {
 				row[j] = new Block(this, R.MAPOFFSETX + j * blockSize, R.MAPOFFSETY + (mapData.length - i - 1) * blockSize, i, j, mapData[i][j], Random.randInt(4));
+				
 			}
 			blocks[i] = row;
 		}
 	}
 	
 	public void randomizeBlocks() {
-		int r, sum = 0;
+		int r;
+		do {
 		for (int i = 0; i < blocks.length; i++) {
 			for (int j = 0; j < blocks[i].length; j++) {
 				r = Random.randInt(0,  4);
-				sum += r;
 				while (r > 0)
 				{
 					blocks[i][j].rotate();
@@ -50,8 +50,9 @@ public class Level implements IDrawable {
 				}
 			}
 		}
-		System.out.println(sum);
 		initializeUnconnecteds();
+		}
+		while(checkLevelFinished());
 	}
 	
 	public void initializeUnconnecteds() {
@@ -160,12 +161,10 @@ public class Level implements IDrawable {
 			block.unconnecteds[Connection.EAST] = true;
 		}
 		
-		parent.blockClicked(block);
-		
 		checkLevelFinished();
 	}
 	
-	public void checkLevelFinished()
+	public boolean checkLevelFinished()
 	{
 		boolean unconnected = false;
 		for (int i = 0; i < blocks.length; i++) {
@@ -180,6 +179,8 @@ public class Level implements IDrawable {
 		if (this.levelIsFinished) {
 			parent.levelWon();
 		}
+		
+		return this.levelIsFinished;
 	}
 
 	public Block getTouchedBlock(float x, float y) {

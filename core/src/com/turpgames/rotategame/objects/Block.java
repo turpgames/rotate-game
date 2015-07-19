@@ -3,8 +3,6 @@ package com.turpgames.rotategame.objects;
 import java.util.Arrays;
 
 import com.turpgames.framework.v0.impl.GameObject;
-import com.turpgames.framework.v0.util.TextureDrawer;
-import com.turpgames.rotategame.utils.R;
 
 public class Block extends GameObject {
 	public static final int CONN0 = 0;
@@ -57,7 +55,7 @@ public class Block extends GameObject {
 		this.getLocation().set(X, Y);
 		this.setWidth(parent.getBlockSize());
 		this.setHeight(parent.getBlockSize());
-		this.getColor().set(R.Colors.BLOCKCOLOR);
+//		this.getColor().set(R.Colors.BLOCKCOLOR);
 		
 		unconnecteds = new boolean[4];
 		Arrays.fill(unconnecteds, false);
@@ -84,14 +82,15 @@ public class Block extends GameObject {
 		if (type == CONN0)
 			return;
 		
-		TextureDrawer.draw(R.Textures.blockImgs[type-1][direction], this);
+//		TextureDrawer.draw(R.Textures.blockImgs[type-1][direction], this);
+		BlockDrawer.drawBlock(type, direction, this);
 		//ShapeDrawer.drawRect(this, true);
 
-		this.getColor().set(R.Colors.UNCONNCOLOR);
-		for (int i = 0; i < 4; i++) {
-			if (unconnecteds[i])
-				TextureDrawer.draw(R.Textures.unconnectedImgs[i], this);
-		}
-		this.getColor().set(R.Colors.BLOCKCOLOR);
+//		this.getColor().set(R.Colors.UNCONNCOLOR);
+//		for (int i = 0; i < 4; i++) {
+//			if (unconnecteds[i])
+//				TextureDrawer.draw(R.Textures.unconnectedImgs[i], this);
+//		}
+//		this.getColor().set(R.Colors.BLOCKCOLOR);
 	}
 }

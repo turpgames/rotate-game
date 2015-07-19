@@ -4,8 +4,8 @@ import com.turpgames.framework.v0.IDrawable;
 import com.turpgames.framework.v0.effects.flash.FlashEffect;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.util.ShapeDrawer;
+import com.turpgames.rotategame.components.texts.LargeText;
 import com.turpgames.rotategame.components.texts.Last5Text;
-import com.turpgames.rotategame.components.texts.NormalText;
 import com.turpgames.rotategame.controller.MasterPlayController;
 import com.turpgames.rotategame.utils.R;
 
@@ -14,66 +14,69 @@ public class LevelTimer implements IDrawable {
 	
 	private MasterPlayController parent;
 	
-	private float secondCounter;
 	private float currTime;
-	private float mapTime;
+	private float totalTime;
 	
-	private NormalText timeText;
+	private LargeText timeText;
 	private Last5Text last5Text;
 	private FlashEffect last5Flash;
 	
-	private boolean timerIsStopped;
+	private boolean isStopped;
+	private boolean isFlashShown;
 	
 	public LevelTimer(MasterPlayController parent) {
 		this.parent = parent;
 		
-		timeText = new NormalText();
-		timeText.setText("");
-		timeText.setAlignment(Text.HAlignRight, Text.VAlignBottom);
-		timeText.setPadY(R.MAPOFFSETY + R.LEVELSIZE + 25);
+		timeText = new LargeText();
 		timeText.getColor().set(R.Colors.BLOCKCOLOR);
-		//timeText.setAlignment(Text.HAlignCenter, Text.VAlignTop);
+		timeText.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
+		timeText.setPadding(0, R.LEVELFRAMEOFFSETY + R.LEVELSIZE + R.BARWIDTH * 2 + R.UNIT * 7);
 		
 		last5Text = new Last5Text();
-		last5Text.setText("");
+		last5Text.setText("1");
 		last5Text.setFontScale(2);
 		last5Text.getColor().set(R.Colors.BLOCKCOLOR);
-		last5Text.getColor().a = 0.55f;
+		last5Text.getColor().a = 0.40f;
 		last5Text.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
-		last5Text.setPadY(R.LEVELFRAMEOFFSETX + (R.LEVELFRAMEHEIGHT - last5Text.getTextAreaHeight()) / 2);
+		last5Text.setPadY(R.LEVELFRAMEOFFSETY + R.BARWIDTH + (R.LEVELSIZE - last5Text.getTextAreaHeight()) / 2);
 		
 		last5Flash = new FlashEffect(last5Text, R.Colors.LAST5SECCOLOR, 5);
 		last5Flash.setDuration(10000);
 		last5Flash.start();
 		
-		this.timerIsStopped = true;
+		this.isStopped = true;
 	}
 	
 	public void stop() {
-		timerIsStopped = true;
+		isStopped = true;
+	}
+
+	public void pause() {
+		stop();
 	}
 	
-	public void start(float mapTime) {
-		this.mapTime = mapTime;
-		this.currTime = mapTime;
-		this.secondCounter = 1;
-		this.timerIsStopped = false;
+	public void unpause() {
+		isStopped = false;
+	}
+	
+	public void start(int totalTime, int size) {
+		if (size < 4)
+			isFlashShown = false;
+		else
+			isFlashShown = true;
+		this.totalTime = totalTime;
+		this.currTime = totalTime;
+		this.isStopped = false;
 	}
 	
 	public void update(float elapsed) {
-		if (!timerIsStopped) {
+		if (!isStopped) {
 			currTime -= elapsed;
-			SCALE = currTime / mapTime;
+			SCALE = currTime / totalTime;
 			
 			if (currTime < 0) {
 				currTime = 0;
 				parent.levelLost();
-			}
-			
-			secondCounter -= elapsed;
-			if (secondCounter < 0) {
-				secondCounter = 1;
-				parent.secondPassed();
 			}
 
 			Integer time = (int) Math.ceil(currTime);
@@ -81,15 +84,18 @@ public class LevelTimer implements IDrawable {
 			last5Text.setText(time.toString());
 		}
 	}
+
+	public void addTime(float addedTime) {
+		totalTime += addedTime;
+		currTime += addedTime;
+	}
 	
 	@Override
 	public void draw() {
-		if (timerIsStopped)
-			return;
-		
-		if (currTime < 9)
+		if (!isStopped && isFlashShown && currTime < 9)
 			last5Text.draw();
-		//timeText.draw();
+		
+		timeText.draw();
 		
 		// Frame
 		ShapeDrawer.drawRect(R.LEVELFRAMEOFFSETX, R.LEVELFRAMEOFFSETY, R.LEVELFRAMEWIDTH, R.BARWIDTH, R.Colors.LEVELFRAMECOLOR, true, false);

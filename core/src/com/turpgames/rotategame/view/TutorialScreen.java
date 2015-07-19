@@ -17,8 +17,8 @@ public class TutorialScreen extends Screen {
 		super.init();
 		
 		NormalText t = new NormalText();
-		t.setText("Click to rotate parts.\nConnect all parts\nso no jagged edges\nremain.\n\nSolve n nxn matrices\nfor each n => [1,8].\n\nFor each nxn matrix\n" +
-				"with index i => [0,n),\n you get\n(n-i) * 10 seconds.");
+		t.setText("Click to rotate and\nconnect all parts.\n\nSolve levels for\neach size\nfrom 2x2 to 8x8.\n\n" +
+				"You get extra \n(size * " + R.LEVELTIMEDEC / 2 + ") seconds\nfor each level.");
 		t.getColor().set(R.Colors.BLOCKCOLOR);
 		t.setAlignment(Text.HAlignCenter, Text.VAlignTop);
 		t.setPadY(R.UNIT * 4);

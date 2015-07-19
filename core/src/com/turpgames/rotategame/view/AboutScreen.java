@@ -1,6 +1,7 @@
 package com.turpgames.rotategame.view;
 
 import com.turpgames.framework.v0.ITexture;
+import com.turpgames.framework.v0.component.Button;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.component.ImageButton;
 import com.turpgames.framework.v0.impl.Screen;
@@ -21,6 +22,7 @@ public class AboutScreen extends Screen {
 	private AboutButton facebookButton;
 	private AboutButton twitterButton;
 	private AboutButton webSiteButton;
+	private ImageButton paypalButton;
 	private ArcadeButton btnMenu;
 
 	@Override
@@ -44,6 +46,27 @@ public class AboutScreen extends Screen {
 		registerDrawable(btnMenu, Game.LAYER_BACKGROUND);
 
 		registerDrawable(new GameLogo(), Game.LAYER_SCREEN);
+		
+		paypalButton = new ImageButton();
+		paypalButton.setTexture(R.Textures.paypalbutton);
+		paypalButton.setWidth(129);
+		paypalButton.setHeight(47);
+		paypalButton.setLocation(Button.AlignS, 0, R.UNIT * 10);
+		paypalButton.setListener(new IButtonListener() {
+			@Override
+			public void onButtonTapped() {
+				Game.openUrl("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3GLEFM46FZFG");
+			}
+		});
+		
+		registerDrawable(paypalButton, Game.LAYER_BACKGROUND);
+		
+		SmallText text = new SmallText();
+		text.getColor().set(R.Colors.BLOCKCOLOR);
+		text.setText("Would you consider donating\nso we can continue making\ngames like this?\n<3 <3 <3");
+		text.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
+		text.setPadding(0, R.UNIT * 24);
+		registerDrawable(text, Game.LAYER_BACKGROUND);
 	}
 
 	private void initVersionText() {
@@ -73,7 +96,6 @@ public class AboutScreen extends Screen {
 	private void initWebSiteButton() {
 		webSiteButton = createButton(Textures.turpbutton, Game.getParam("turp-address"), buttonSize, getX(2), 400f);
 		registerDrawable(webSiteButton, Game.LAYER_SCREEN);
-
 	}
 
 	private static AboutButton createButton(ITexture texture, final String url, float size, float x, float y) {
@@ -98,6 +120,7 @@ public class AboutScreen extends Screen {
 		facebookButton.activate();
 		twitterButton.activate();
 		webSiteButton.activate();
+		paypalButton.activate();
 		btnMenu.activate();
 	}
 
@@ -106,6 +129,7 @@ public class AboutScreen extends Screen {
 		facebookButton.deactivate();
 		twitterButton.deactivate();
 		webSiteButton.deactivate();
+		paypalButton.deactivate();
 		btnMenu.deactivate();
 
 		return super.onBeforeDeactivate();

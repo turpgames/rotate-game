@@ -2,9 +2,9 @@ package com.turpgames.rotategame.objects;
 
 import com.turpgames.framework.v0.IDrawable;
 import com.turpgames.framework.v0.impl.InputListener;
-import com.turpgames.framework.v0.impl.TexturedGameObject;
 import com.turpgames.framework.v0.util.GameUtils;
 import com.turpgames.framework.v0.util.Rectangle;
+import com.turpgames.framework.v0.util.ShapeDrawer;
 import com.turpgames.rotategame.controller.MasterPlayController;
 import com.turpgames.rotategame.utils.R;
 
@@ -13,30 +13,14 @@ public class ControlListener extends InputListener implements IDrawable {
 	private Rectangle frameRect;
 
 	private Block focusedBlock;
-	private TexturedGameObject highlight;
 	public boolean isActive;
 	
 	public ControlListener(MasterPlayController controller) {
 		this.parent = controller;
 		this.frameRect = new Rectangle(R.MAPOFFSETX, R.MAPOFFSETY, R.LEVELSIZE, R.LEVELSIZE);
 		this.focusedBlock = null;
-		this.highlight = new TexturedGameObject(R.Textures.DOT) { };
-		highlight.setWidth(parent.getBlockSize());
-		highlight.setHeight(parent.getBlockSize());
-		highlight.getColor().set(R.Colors.BUTTONCOLOR);
-		dealignHighlight();
 		
 		isActive = true;
-	}
-	
-	private void alignHighlight(Block block) {
-		highlight.getLocation().x = block.getLocation().x;
-		highlight.getLocation().y = block.getLocation().y;
-	}
-	
-	private void dealignHighlight() {
-		highlight.getLocation().x = -300;
-		highlight.getLocation().y = -300;
 	}
 	
 	@Override
@@ -46,7 +30,6 @@ public class ControlListener extends InputListener implements IDrawable {
 		if (GameUtils.isIn(x, y, frameRect, false)) {
 			Block block = parent.getTouchedBlock(x, y);
 			focusedBlock = block;
-			alignHighlight(focusedBlock);
 		}
 		return super.touchDown(x, y, pointer, button);
 	}
@@ -58,11 +41,9 @@ public class ControlListener extends InputListener implements IDrawable {
 		if (GameUtils.isIn(x, y, frameRect, false)) {
 			Block block = parent.getTouchedBlock(x, y);
 			focusedBlock = block;
-			alignHighlight(focusedBlock);
 		}
 		else {
 			focusedBlock = null;
-			dealignHighlight();
 		}
 		return super.touchDragged(x, y, pointer);
 	}
@@ -72,24 +53,25 @@ public class ControlListener extends InputListener implements IDrawable {
 		if (!isActive)
 			return false;
 		if (GameUtils.isIn(x, y, frameRect, false)) {
-			focusedBlock.clicked();
-			dealignHighlight();
+			if (focusedBlock != null)
+				focusedBlock.clicked();
+			focusedBlock = null;
 		}
 		return super.touchUp(x, y, pointer, button);
 	}
 	
 	@Override
 	public void draw() {
-		this.highlight.draw();
+		if (focusedBlock != null)
+			ShapeDrawer.drawRect(focusedBlock.getLocation().x, focusedBlock.getLocation().y, MasterPlayController.getBlockSize(), MasterPlayController.getBlockSize(), R.Colors.BUTTONCOLOR, true, false);
 	}
 
 	public void stop() {
 		isActive = false;
+		focusedBlock = null;
 	}
 	
 	public void start(float size) {
 		isActive = true;
-		highlight.setWidth(size);
-		highlight.setHeight(size);
 	}
 }

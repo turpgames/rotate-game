@@ -52,6 +52,7 @@ public class MapData {
 			}
 		}
 
+		boolean empty = true; // to prevent generating empty levels by cbance.
 		int[][] map = new int[mapSize][mapSize];
 		int trues;
 		for (int i = 0; i < mapSize; i++) {
@@ -82,9 +83,18 @@ public class MapData {
 					map[i][j] = Block.CONN3;
 				else if (trues == 4)
 					map[i][j] = Block.CONN4;
+				
+				if (trues != 0)
+					empty = false;
 			}
 		}
-		return map;
+		
+		if (empty)
+			return randMap(mapSize);
+		else if (mapSize == 3 && map[1][1] == Block.CONN4) // swastika filter...
+			return randMap(mapSize);
+		else
+			return map;
 //		return new int[][]{
 //	     		{2, 2, 0, 0, 0},
 //	    		{2, 2, 0, 0, 0},
