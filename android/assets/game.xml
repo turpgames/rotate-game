@@ -102,20 +102,22 @@
             class="com.turpgames.rotategame.view.SplashScreen" />
         <screen
             id="menu"
-            class="com.turpgames.rotategame.view.MenuScreen"
-            background-texture="bgdot"/>
+            class="com.turpgames.rotategame.view.MenuScreen" />
         <screen
             id="play"
-            class="com.turpgames.rotategame.view.PlayScreen" 
-            background-texture="bgdot"/>
+            class="com.turpgames.rotategame.view.PlayScreen" />
         <screen
             id="tutorial"
-            class="com.turpgames.rotategame.view.TutorialScreen" 
-            background-texture="bgdot"/>
+            class="com.turpgames.rotategame.view.TutorialScreen" />
+        <screen
+            id="finished"
+            class="com.turpgames.rotategame.view.FinishedScreen" />
+        <screen
+            id="skin"
+            class="com.turpgames.rotategame.view.SkinScreen" />
         <screen
             id="about"
-            class="com.turpgames.rotategame.view.AboutScreen" 
-            background-texture="bgdot"/>
+            class="com.turpgames.rotategame.view.AboutScreen" />
     </screens>
 
     <forms>
@@ -189,17 +191,28 @@
             <texture
                 id="btn_active"
                 path="img/btn_active.png"/>
-            
-            <texture
-                id="bgdot"
-                path="img/bgdot.png"/>
         </textures>
         
         <sounds>
 
-            <!-- <sound
-                id="1"
-                path="audio/1.mp3" /> -->
+            <sound
+                id="new"
+                path="audio/new1.wav" />
+            <sound
+                id="size"
+                path="audio/size1.wav" />
+            <sound
+                id="turn"
+                path="audio/turn1.wav" />
+            <sound
+                id="win"
+                path="audio/win1.wav" />
+            <sound
+                id="lastseconds"
+                path="audio/lastseconds1.wav" />
+            <sound
+                id="lost"
+                path="audio/lost1.wav" />
         </sounds>
 
         <musics>

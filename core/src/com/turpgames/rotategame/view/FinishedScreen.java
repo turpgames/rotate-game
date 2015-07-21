@@ -8,39 +8,36 @@ import com.turpgames.rotategame.components.texts.NormalText;
 import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Screens;
 
-public class TutorialScreen extends BaseScreen {
-	private ArcadeButton btnPlay;
+public class FinishedScreen extends BaseScreen {
+	private ArcadeButton btnAbout;
 	private NormalText t;
+	
 	@Override
 	public void init() {
 		super.init();
 		
 		t = new NormalText();
-		t.setText("Click to rotate and\nconnect all parts.\n\nSolve n levels for\neach size nxn\n\n" +
-				"(n * " + R.LEVELTIMEDEC / 2 + ") seconds\nfor each level.\n\nCan you reach\n8x8?");
+		t.setText("WOW!\nDidn't expect anybody\nto make it this far!\n\nA big\nCONGRATULATIONS\nis in order.\n\n " +
+				"Thank you for playing");
 		t.getColor().set(R.Colors.COLOR1);
 		t.setAlignment(Text.HAlignCenter, Text.VAlignTop);
 		t.setPadY(R.UNIT * 4);
 		registerDrawable(t, Game.LAYER_BACKGROUND);
 		
-		btnPlay = MenuScreen.createButton(Screens.play, "Cont.", R.UNIT * 3);
-		registerDrawable(btnPlay, Game.LAYER_BACKGROUND);
-	}
-
-	public void updateColor() {
-		t.getColor().set(R.Colors.COLOR1);
+		btnAbout = MenuScreen.createButton(Screens.about, "Credits", R.UNIT * 3);
+		registerDrawable(btnAbout, Game.LAYER_BACKGROUND);
 	}
 	
 	@Override
 	protected void onAfterActivate() {
-		btnPlay.activate();
-		updateColor();
+		btnAbout.activate();
+		t.getColor().set(R.Colors.COLOR1);
 		super.onAfterActivate();
 	}
 	
 	@Override
 	protected void onAfterDeactivate() {
-		btnPlay.deactivate();
+		btnAbout.deactivate();
 		super.onAfterDeactivate();
 	}
 	

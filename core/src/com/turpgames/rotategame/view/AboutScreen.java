@@ -4,7 +4,6 @@ import com.turpgames.framework.v0.ITexture;
 import com.turpgames.framework.v0.component.Button;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.component.ImageButton;
-import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.util.Game;
@@ -15,7 +14,7 @@ import com.turpgames.rotategame.utils.R;
 import com.turpgames.rotategame.utils.R.Screens;
 import com.turpgames.rotategame.utils.R.Textures;
 
-public class AboutScreen extends Screen {
+public class AboutScreen extends BaseScreen {
 	private final static float buttonSize = 128f;
 	private final static int buttonPerRow = 3;
 	
@@ -62,16 +61,16 @@ public class AboutScreen extends Screen {
 		registerDrawable(paypalButton, Game.LAYER_BACKGROUND);
 		
 		SmallText text = new SmallText();
-		text.getColor().set(R.Colors.BLOCKCOLOR);
-		text.setText("Would you consider donating\nso we can continue making\ngames like this?\n<3 <3 <3");
+		text.getColor().set(R.Colors.COLOR1);
+		text.setText("Would you consider donating\nso we can continue making\ngames like this? <3");
 		text.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
-		text.setPadding(0, R.UNIT * 24);
+		text.setPadding(0, R.UNIT * 27);
 		registerDrawable(text, Game.LAYER_BACKGROUND);
 	}
 
 	private void initVersionText() {
 		Text text = new SmallText();
-		text.getColor().set(R.Colors.BLOCKCOLOR);
+		text.getColor().set(R.Colors.COLOR1);
 		text.setText("v" + Game.getVersion());
 		text.setAlignment(Text.HAlignCenter, Text.VAlignTop);
 		text.setPadY(R.UNIT * 18);

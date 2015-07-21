@@ -44,35 +44,56 @@ public class R {
 	public static class Screens {
 		public static final String menu = "menu";
 		public static final String play = "play";
-		public static final String master = "master";
-		public static final String about = "about";
-		public static final String hiscores = "hiscores";
-
-		public static final String finishednormal = "finishednormal";
-		public static final String finishedmaster = "finishedmaster";
 		public static final String tutorial = "tutorial";
+		public static final String finished = "finished";
+		public static final String skin = "skin";
+		public static final String about = "about";
 	}
 	
 	public static class Colors {
 		public static final Color TURP_YELLOW = Color.fromHex("#f9b000ff");
 		
 		public static final Color WASABI1 = Color.fromHex("#FF4242FF");
-		public static final Color WASABI2 = Color.fromHex("#F4FAD2FF");
-		public static final Color WASABI3 = Color.fromHex("#D4EE5EFF");
-		public static final Color WASABI4 = Color.fromHex("#E1EDB9FF");
-		public static final Color WASABI5 = Color.fromHex("#F0F2EBFF");
+		public static final Color WASABI2 = Color.fromHex("#D4EE5EFF");
+		public static final Color WASABI3 = Color.fromHex("#F0F2EBFF");
 		
-		public static final Color TITLECOLOR = WASABI1;
-		public static final Color BACKGROUND = WASABI5;
-		public static final Color FADECOLOR = WASABI5;
-		public static final Color BUTTONCOLOR = WASABI3;
-		public static final Color BUTTONLABELCOLOR = WASABI1;
-		public static final Color BLOCKCOLOR = WASABI1;
-		public static final Color HIGHLIGHTCOLOR = WASABI3;
-		public static final Color UNCONNCOLOR = WASABI5;
-		public static final Color LEVELFRAMECOLOR = BLOCKCOLOR;
-		public static final Color TIMERBARCOLOR = BUTTONCOLOR;
-		public static final Color LAST5SECCOLOR = WASABI2;
+		public static final Color GOLDFISH1 = Color.fromHex("#FA6900FF");
+		public static final Color GOLDFISH2 = Color.fromHex("#69D2E7FF");
+		public static final Color GOLDFISH3 = Color.fromHex("#E0E4CCFF");
+
+		public static final Color CHEERUP1 = Color.fromHex("#FF6B6BFF");
+		public static final Color CHEERUP2 = Color.fromHex("#4ECDC4FF"); 
+		public static final Color CHEERUP3 = Color.fromHex("#C7F464FF");
+
+		public static final Color OCEANFIVE1 = Color.fromHex("#00A0B0FF");
+		public static final Color OCEANFIVE2 = Color.fromHex("#CC333FFF");
+		public static final Color OCEANFIVE3 = Color.fromHex("#EDC951FF");
+
+		public static final Color SUGAR1 = Color.fromHex("#E97F02FF");
+		public static final Color SUGAR2 = Color.fromHex("#8A9B0FFF");
+		public static final Color SUGAR3 = Color.fromHex("#F8CA00FF");
+		
+		public static final Color CURIOSITY1 = Color.fromHex("#DCE9BEFF");
+		public static final Color CURIOSITY2 = Color.fromHex("#99173CFF");
+		public static final Color CURIOSITY3 = Color.fromHex("#2E2633FF");
+
+		public static final Color HEADACHE1 = Color.fromHex("#BF4D28FF");
+		public static final Color HEADACHE2 = Color.fromHex("#E6AC27FF");
+		public static final Color HEADACHE3 = Color.fromHex("#F6F7BDFF");
+		public static final Color HEADACHE4 = Color.fromHex("#80BCA3FF");
+		public static final Color HEADACHE5 = Color.fromHex("#655643FF");
+
+		public static final Color WAVES1 = Color.fromHex("#024055FF");
+		public static final Color WAVES2 = Color.fromHex("#9CB5B1FF");
+		public static final Color WAVES3 = Color.fromHex("#F9F0F3FF");
+
+		public static final Color HONEY1 = Color.fromHex("#DF7F41FF");
+		public static final Color HONEY2 = Color.fromHex("#F7DDADFF");
+		public static final Color HONEY3 = Color.fromHex("#BECBADFF");
+		
+		public static Color COLOR1 = CURIOSITY1;
+		public static Color COLOR2 = CURIOSITY2;
+		public static Color COLOR3 = CURIOSITY3;
 	}
 	
 	public static class Textures

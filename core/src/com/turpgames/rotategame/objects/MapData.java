@@ -88,10 +88,26 @@ public class MapData {
 					empty = false;
 			}
 		}
+				
+		if (mapSize >= 3) { // swastika filter
+			for (int i = 1; i < mapSize - 1; i++) {
+				for (int j = 0; j < mapSize - 1; j++) {
+					if (map[i][j] == Block.CONN4) {
+						if (map[i-1][j] == Block.CONN2CRV && map[i+1][j] == Block.CONN2CRV && 
+								map[i][j-1] == Block.CONN2CRV && map[i][j+1] == Block.CONN2CRV){
+							if (map[i-1][j-1] == Block.CONN1 && map[i+1][j+1] == Block.CONN1 && 
+									map[i+1][j-1] == Block.CONN1 && map[i-1][j+1] == Block.CONN1){
+								return randMap(mapSize);
+							}
+						}
+					}
+				}
+			}
+		}
 		
 		if (empty)
 			return randMap(mapSize);
-		else if (mapSize == 3 && map[1][1] == Block.CONN4) // swastika filter...
+		else if (mapSize == 3 && map[1][1] == Block.CONN4) // swastika-like filter
 			return randMap(mapSize);
 		else
 			return map;

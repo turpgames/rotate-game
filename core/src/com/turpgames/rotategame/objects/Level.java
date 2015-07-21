@@ -161,7 +161,8 @@ public class Level implements IDrawable {
 			block.unconnecteds[Connection.EAST] = true;
 		}
 		
-		checkLevelFinished();
+		if (!checkLevelFinished())
+			parent.blockIsClicked(block);
 	}
 	
 	public boolean checkLevelFinished()

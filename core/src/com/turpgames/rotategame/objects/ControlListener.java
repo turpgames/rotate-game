@@ -63,7 +63,7 @@ public class ControlListener extends InputListener implements IDrawable {
 	@Override
 	public void draw() {
 		if (focusedBlock != null)
-			ShapeDrawer.drawRect(focusedBlock.getLocation().x, focusedBlock.getLocation().y, MasterPlayController.getBlockSize(), MasterPlayController.getBlockSize(), R.Colors.BUTTONCOLOR, true, false);
+			ShapeDrawer.drawRect(focusedBlock.getLocation().x, focusedBlock.getLocation().y, MasterPlayController.getBlockSize(), MasterPlayController.getBlockSize(), R.Colors.COLOR1, true, false);
 	}
 
 	public void stop() {

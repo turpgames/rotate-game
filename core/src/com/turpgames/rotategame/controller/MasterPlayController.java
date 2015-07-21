@@ -1,20 +1,23 @@
 package com.turpgames.rotategame.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.turpgames.framework.v0.IDrawable;
-import com.turpgames.framework.v0.component.Button;
+import com.turpgames.framework.v0.ISound;
 import com.turpgames.framework.v0.component.IButtonListener;
 import com.turpgames.framework.v0.effects.flash.FlashEffect;
 import com.turpgames.framework.v0.impl.InputListener;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.impl.Text;
 import com.turpgames.framework.v0.util.Game;
-import com.turpgames.rotategame.components.BackButton;
+import com.turpgames.rotategame.components.PauseButton;
 import com.turpgames.rotategame.components.RestartButton;
+import com.turpgames.rotategame.components.texts.LargeText;
 import com.turpgames.rotategame.components.texts.LevelResultText;
-import com.turpgames.rotategame.components.texts.XLargeText;
 import com.turpgames.rotategame.objects.Block;
+import com.turpgames.rotategame.objects.BlockDrawer;
 import com.turpgames.rotategame.objects.ControlListener;
-import com.turpgames.rotategame.objects.DrawableContainer;
 import com.turpgames.rotategame.objects.Level;
 import com.turpgames.rotategame.objects.LevelTimer;
 import com.turpgames.rotategame.objects.MapData;
@@ -25,86 +28,74 @@ public class MasterPlayController extends InputListener implements IDrawable {
 	private static int CURRENTMATRIXSIZE = 2;
 	
 	private ControlListener listener;
-	
-	private int[][] mapData;
-	
+		
 	private Level level;
 
-	private DrawableContainer generalDrawables;
+	private List<IDrawable> drawables;
 	
 	private int mapIndex;
 	private LevelTimer levelTimer;
 	private PauseTimer pauseTimer;
 	
-	private XLargeText levelTitle;
-	
+	private LargeText levelTitle;
 	private LevelResultText levelResultText;
 	private FlashEffect gameWonFlash;
-	private FlashEffect restartFlash;
 
-	private BackButton btnBack;
+	private PauseButton btnPause;
 	private RestartButton btnRestart;
-	/***
-	 * 	8		30	15	0.53
-		9.3		60	20	0.46
-		26		100	25	1.04
-		33.2	150	30	1.10
-		53.8	210	35	1.53
-		78.2	280	40	1.95
-		94.2	360	45	2.09
-	 */
+	
+	private ISound newSound;
+	private ISound sizeSound;
+	private ISound turnSound;
+	private ISound winSound;
+	private ISound lostSound;
+
 	public MasterPlayController() {
-		generalDrawables = new DrawableContainer();
+		newSound = Game.getResourceManager().getSound("new");
+		sizeSound = Game.getResourceManager().getSound("size");
+		turnSound = Game.getResourceManager().getSound("turn");
+		winSound = Game.getResourceManager().getSound("win");
+		lostSound = Game.getResourceManager().getSound("lost");
+		
+		drawables = new ArrayList<IDrawable>();
 		
 		listener = new ControlListener(this);
-		generalDrawables.add(listener);
+		drawables.add(listener);
 		
-		btnBack = new BackButton();
-		btnBack.setLocation(Button.AlignNW, R.BUTTONSPACING, R.BUTTONSPACING);
-		btnBack.setListener(new IButtonListener() {
-			@Override
-			public void onButtonTapped() {
-//				levelWon();
-				ScreenManager.instance.switchTo(R.Screens.menu, false);
-			}
-		});
-		generalDrawables.add(btnBack);
-		generalDrawables.activate();
+		btnPause = new PauseButton();
+		drawables.add(btnPause);
 		
 		float aboveFrame = R.LEVELFRAMEOFFSETY + R.LEVELSIZE + R.BARWIDTH * 2;
 		
-		levelTitle = new XLargeText();
-		levelTitle.getColor().set(R.Colors.BLOCKCOLOR);
+		levelTitle = new LargeText();
+		levelTitle.getColor().set(R.Colors.COLOR1);
 		levelTitle.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
 		levelTitle.setPadding(0, aboveFrame + R.UNIT * 14);
-		generalDrawables.add(levelTitle);
+		drawables.add(levelTitle);
 		
 		levelResultText = new LevelResultText();
 		levelResultText.setAlignment(Text.HAlignCenter, Text.VAlignBottom);
 		levelResultText.setPadY(aboveFrame + R.UNIT * 2);
-		levelResultText.getColor().set(R.Colors.BLOCKCOLOR);
-		generalDrawables.add(levelResultText);
+		levelResultText.getColor().set(R.Colors.COLOR1);
+		drawables.add(levelResultText);
 		
-		gameWonFlash = new FlashEffect(levelResultText, R.Colors.BUTTONCOLOR, 4);
+		gameWonFlash = new FlashEffect(levelResultText, R.Colors.COLOR2, 4);
 		gameWonFlash.setDuration(100);
 
 		btnRestart = new RestartButton();
-		btnRestart.setLocation(Button.AlignNE, R.BUTTONSPACING, R.BUTTONSPACING);
 		btnRestart.setListener(new IButtonListener() {
 			@Override
 			public void onButtonTapped() {
 				start();
+//				levelWon();
 			}
 		});
-
-		restartFlash = new FlashEffect(btnRestart, R.Colors.BLOCKCOLOR, 4);
-		restartFlash.setDuration(100);
 		
-		generalDrawables.add(btnRestart);
-		generalDrawables.add(btnBack);
+		drawables.add(btnRestart);
+		drawables.add(btnPause);
 
 		levelTimer = new LevelTimer(this);
-		generalDrawables.add(levelTimer);
+		drawables.add(levelTimer);
 		
 		pauseTimer = new PauseTimer(this);
 		
@@ -124,20 +115,29 @@ public class MasterPlayController extends InputListener implements IDrawable {
 		
 		levelResultText.setText("Time up...");
 		gameWonFlash.stop();
-		restartFlash.start();
+		btnRestart.startFlash();
 		
 		level.levelIsFinished = true;
 		levelTimer.stop();
+		
+		lostSound.play();
 	}
 	
 	public void levelWon() {
+		winSound.play();
 		listener.stop();
 		
 		int addedTime = getLevelTime();
-		if (mapIndex < CURRENTMATRIXSIZE)
+		if (mapIndex < CURRENTMATRIXSIZE) {
 			levelResultText.setText("+" + addedTime + "!");
-		else
+		}
+		else if (CURRENTMATRIXSIZE < 8 ) {
 			levelResultText.setText("SIZE UP!");
+		}
+		else {
+			start();
+			ScreenManager.instance.switchTo(R.Screens.finished, false);
+		}
 		gameWonFlash.start();
 		levelTimer.addTime(addedTime);
 		
@@ -156,17 +156,22 @@ public class MasterPlayController extends InputListener implements IDrawable {
 			CURRENTMATRIXSIZE++;
 			mapIndex = 1;
 			levelTimer.start(getLevelTime(), CURRENTMATRIXSIZE);
+			if (CURRENTMATRIXSIZE != 2)
+				sizeSound.play();
+		}
+		else {
+			newSound.play();
 		}
 		
-		mapData = MapData.randMap(CURRENTMATRIXSIZE);
-		generalDrawables.remove(level);
-		level = new Level(this, mapData, CURRENTMATRIXSIZE);
-		generalDrawables.add(2, level);
+		drawables.remove(level);
+		level = new Level(this, MapData.randMap(CURRENTMATRIXSIZE), CURRENTMATRIXSIZE);
+		drawables.add(2, level);
 		
 		setLevelTitle();
-		restartFlash.stop();
+		btnRestart.stopFlash();
 		listener.start(getBlockSize());
 		levelTimer.unpause();
+		
 	}
 	
 	public void update() {
@@ -176,12 +181,14 @@ public class MasterPlayController extends InputListener implements IDrawable {
 	}
 
 	private void setLevelTitle() {
-		levelTitle.setText("Lvl " + mapIndex + "/" + CURRENTMATRIXSIZE);
+		levelTitle.setText(mapIndex + "/" + CURRENTMATRIXSIZE + "x" + CURRENTMATRIXSIZE);
 	}
 	
 	@Override
 	public void draw() {
-		generalDrawables.draw();
+		for (IDrawable obj : drawables) {
+			obj.draw();
+		}
 	}
 
 	@Override
@@ -205,12 +212,20 @@ public class MasterPlayController extends InputListener implements IDrawable {
 
 	public void activate() {
 		btnRestart.activate();
-		btnBack.activate();
+		btnPause.activate();
+		
+		btnRestart.updateColor();
+		btnPause.updateColor();
+		levelTimer.updateColor();
+		BlockDrawer.updateColor();
+		levelTitle.getColor().set(R.Colors.COLOR1);
+		levelResultText.getColor().set(R.Colors.COLOR1);
+		gameWonFlash.setFlashColor(R.Colors.COLOR2);
 	}
 
 	public void deactivate() {
 		btnRestart.deactivate();
-		btnBack.deactivate();
+		btnPause.deactivate();
 	}
 	
 	public static float getBlockSize() {
@@ -219,5 +234,9 @@ public class MasterPlayController extends InputListener implements IDrawable {
 
 	private int getLevelTime() {
 		return R.LEVELTIMEDEC * CURRENTMATRIXSIZE / 2;
+	}
+
+	public void blockIsClicked(Block b) {
+		turnSound.play();
 	}
 }

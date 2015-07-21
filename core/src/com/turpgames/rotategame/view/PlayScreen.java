@@ -1,12 +1,11 @@
 package com.turpgames.rotategame.view;
 
-import com.turpgames.framework.v0.impl.Screen;
 import com.turpgames.framework.v0.impl.ScreenManager;
 import com.turpgames.framework.v0.util.Game;
 import com.turpgames.rotategame.controller.MasterPlayController;
 import com.turpgames.rotategame.utils.R;
 
-public class PlayScreen extends Screen implements IScreenView {
+public class PlayScreen extends BaseScreen implements IScreenView {
 
 	private MasterPlayController controller;
 	

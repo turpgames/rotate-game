@@ -15,16 +15,22 @@ public class ArcadeButton extends Button2 {
 		this.text.setAlignment(Text.HAlignCenter, Text.VAlignCenter);
 		
 		setTexture(R.Textures.btn_default, R.Textures.btn_active);
-		setColor(R.Colors.BUTTONCOLOR);
-		setTextColor(R.Colors.BUTTONLABELCOLOR);
+		setColor(R.Colors.COLOR2);
+		setTextColor(R.Colors.COLOR1);
 		setText(s);
 		setSize(R.BUTTONWIDTH, R.BUTTONHEIGHT);
 		setScaleOnTouch(false);
 	}
 	
+	public void updateColor() {
+		setColor(R.Colors.COLOR2);
+		setTextColor(R.Colors.COLOR1);
+	}
+	
 	@Override
 	public void activate() {
 		button.listenInput(true);
+		updateColor();
 	}
 	
 	@Override

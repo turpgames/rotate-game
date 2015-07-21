@@ -14,7 +14,11 @@ public class GameLogo implements IDrawable {
 		title.setAlignment(Text.HAlignCenter, Text.VAlignTop);
 		title.setPadY(Game.getVirtualHeight() / 10);
 		title.setText("Rot8");
-		title.getColor().set(R.Colors.BLOCKCOLOR);
+		title.getColor().set(R.Colors.COLOR1);
+	}
+
+	public void updateColor() {
+		title.getColor().set(R.Colors.COLOR1);
 	}
 	
 	@Override

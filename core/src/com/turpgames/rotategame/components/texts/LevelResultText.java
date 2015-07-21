@@ -2,7 +2,7 @@ package com.turpgames.rotategame.components.texts;
 
 
 public class LevelResultText extends NormalText {
-	private static float TIME = 6; 
+	private static float TIME = 3; 
 	private float timer;
 	
 	@Override
